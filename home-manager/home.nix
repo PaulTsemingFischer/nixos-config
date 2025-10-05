@@ -53,25 +53,29 @@
 
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
-  # home.packages = with pkgs; [ steam ];
+  home.packages = with pkgs; [
+    steam
+    discord
+    spotify
+  ];
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
-  
+
   programs.ssh = {
-  enable = true;
-  extraConfig = ''
-    Host github.com
-      IdentityFile ~/.ssh/id_ed25519
-      IdentitiesOnly yes
-  '';
+    enable = true;
+    extraConfig = ''
+      Host github.com
+        IdentityFile ~/.ssh/id_ed25519
+        IdentitiesOnly yes
+    '';
   };
   services.ssh-agent.enable = true;
 
   programs.git = {
-  enable = true;
-  userName = "Paul Fischer";
-  userEmail = "paultsemingfischer@gmail.com";
+    enable = true;
+    userName = "Paul Fischer";
+    userEmail = "paultsemingfischer@gmail.com";
   };
 
   # Nicely reload system units when changing configs
