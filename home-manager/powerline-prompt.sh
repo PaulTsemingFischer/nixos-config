@@ -1,4 +1,4 @@
-# ===== Zsh Powerline Prompt with Color Constants =====
+# ===== Zsh Powerline Prompt with Color Constants and Dynamic Git =====
 
 # ================= BASIC COLORS =================
 COLOR_BLACK=0
@@ -41,19 +41,23 @@ COLOR_SOFT_PURPLE=147
 COLOR_SOFT_PINK=218   # same as pastel pink
 COLOR_SOFT_GREEN=120
 
-
 # ================= THEME COLORS =================
-# Assign theme elements using color constants
 THEME_USER_BG=$COLOR_PASTEL_PINK
 THEME_USER_FG=$COLOR_BLACK
 THEME_SPECIAL_DIR_BG=$COLOR_PASTEL_GREEN
 THEME_SPECIAL_DIR_FG=$COLOR_BLACK
 THEME_PATH_BG=$COLOR_PASTEL_BLUE
 THEME_PATH_FG=$COLOR_BLACK
-THEME_GIT_BG=$COLOR_CYAN_LIGHT
-THEME_GIT_FG=$COLOR_BLACK
 THEME_PROMPT_BG=$COLOR_LIGHT_RED
 THEME_PROMPT_FG=$COLOR_WHITE
+
+# Git status colors
+THEME_GIT_CLEAN_BG=$COLOR_SOFT_PURPLE
+THEME_GIT_CLEAN_FG=$COLOR_BLACK
+THEME_GIT_STAGED_BG=$COLOR_YELLOW
+THEME_GIT_STAGED_FG=$COLOR_BLACK
+THEME_GIT_UNCOMMITTED_BG=$COLOR_RED
+THEME_GIT_UNCOMMITTED_FG=$COLOR_WHITE
 
 # ================= INTERNAL COLOR VARIABLES =================
 BG_USER="%{\e[48;5;${THEME_USER_BG}m%}"
@@ -62,16 +66,21 @@ BG_SPECIAL_DIR="%{\e[48;5;${THEME_SPECIAL_DIR_BG}m%}"
 FG_SPECIAL_DIR="%{\e[38;5;${THEME_SPECIAL_DIR_BG}m%}"
 BG_PATH="%{\e[48;5;${THEME_PATH_BG}m%}"
 FG_PATH="%{\e[38;5;${THEME_PATH_BG}m%}"
-BG_GIT="%{\e[48;5;${THEME_GIT_BG}m%}"
-FG_GIT="%{\e[38;5;${THEME_GIT_BG}m%}"
 BG_PROMPT="%{\e[48;5;${THEME_PROMPT_BG}m%}"
 FG_PROMPT="%{\e[38;5;${THEME_PROMPT_BG}m%}"
 
 TXT_USER_FG="%{\e[38;5;${THEME_USER_FG}m%}"
 TXT_SPECIAL_DIR_FG="%{\e[38;5;${THEME_SPECIAL_DIR_FG}m%}"
 TXT_PATH_FG="%{\e[38;5;${THEME_PATH_FG}m%}"
-TXT_GIT_FG="%{\e[38;5;${THEME_GIT_FG}m%}"
 TXT_PROMPT_FG="%{\e[38;5;${THEME_PROMPT_FG}m%}"
+
+# Git status colors
+BG_GIT_CLEAN="%{\e[48;5;${THEME_GIT_CLEAN_BG}m%}"
+TXT_GIT_CLEAN_FG="%{\e[38;5;${THEME_GIT_CLEAN_FG}m%}"
+BG_GIT_STAGED="%{\e[48;5;${THEME_GIT_STAGED_BG}m%}"
+TXT_GIT_STAGED_FG="%{\e[38;5;${THEME_GIT_STAGED_FG}m%}"
+BG_GIT_UNCOMMITTED="%{\e[48;5;${THEME_GIT_UNCOMMITTED_BG}m%}"
+TXT_GIT_UNCOMMITTED_FG="%{\e[38;5;${THEME_GIT_UNCOMMITTED_FG}m%}"
 
 # ================= TEXT STYLES =================
 BOLD="%{\e[1m%}"
@@ -89,6 +98,27 @@ git_branch() {
   if command git rev-parse --is-inside-work-tree &>/dev/null; then
     git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD
   fi
+}
+
+# ================= GIT STATUS DETECTION =================
+git_status_color() {
+  if ! git rev-parse --is-inside-work-tree &>/dev/null; then
+    return
+  fi
+
+  local status=$(git status --porcelain 2>/dev/null)
+
+  if [[ -z $status ]]; then
+    echo "${BG_GIT_CLEAN} ${TXT_GIT_CLEAN_FG}"
+    return
+  fi
+
+  if echo "$status" | grep -q "^[AMDR]"; then
+    echo "${BG_GIT_STAGED} ${TXT_GIT_STAGED_FG}"
+    return
+  fi
+
+  echo "${BG_GIT_UNCOMMITTED} ${TXT_GIT_UNCOMMITTED_FG}"
 }
 
 # ================= PATH FORMATTING =================
@@ -159,25 +189,16 @@ segment_path_and_git() {
 
   echo -n "$path_content"
 
-  if [[ $has_subdirs == "true" ]]; then
-    if [[ -n $branch ]]; then
-      echo -n " ${RESET}${FG_PATH}${BG_GIT}${RIGHT_ARROW}${RESET}${BG_GIT}${TXT_GIT_FG}${BOLD} ${GIT_LOGO} $branch ${RESET}${FG_GIT}${RIGHT_ARROW}${RESET}"
-    else
-      echo -n " ${RESET}${FG_PATH}${RIGHT_ARROW}${RESET}"
-    fi
+  if [[ -n $branch ]]; then
+    local git_colors=$(git_status_color)
+    local git_bg=${git_colors%% *}
+    local git_fg=${git_colors##*}
+    echo -n " ${RESET}${FG_PATH}${git_bg}${RIGHT_ARROW}${RESET}${git_bg}${git_fg}${BOLD} ${GIT_LOGO} $branch ${RESET}${FG_GIT}${RIGHT_ARROW}${RESET}"
   else
-    if [[ -n $branch ]]; then
-      if [[ $is_special_dir == "true" ]]; then
-        echo -n "${FG_SPECIAL_DIR}${BG_GIT}${RIGHT_ARROW}${RESET}${BG_GIT}${TXT_GIT_FG}${BOLD} ${GIT_LOGO} $branch ${RESET}${FG_GIT}${RIGHT_ARROW}${RESET}"
-      else
-        echo -n "${FG_PATH}${BG_GIT}${RIGHT_ARROW}${RESET}${BG_GIT}${TXT_GIT_FG}${BOLD} ${GIT_LOGO} $branch ${RESET}${FG_GIT}${RIGHT_ARROW}${RESET}"
-      fi
+    if [[ $is_special_dir == "true" ]]; then
+      echo -n "${FG_SPECIAL_DIR}${RIGHT_ARROW}${RESET}"
     else
-      if [[ $is_special_dir == "true" ]]; then
-        echo -n "${FG_SPECIAL_DIR}${RIGHT_ARROW}${RESET}"
-      else
-        echo -n "${FG_PATH}${RIGHT_ARROW}${RESET}"
-      fi
+      echo -n "${FG_PATH}${RIGHT_ARROW}${RESET}"
     fi
   fi
 }
