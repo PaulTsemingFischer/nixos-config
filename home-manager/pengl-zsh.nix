@@ -10,8 +10,8 @@
       plugins = ["git" "thefuck"];
       theme = "agnoster";
     };
-    # initExtra = ''
-    #   ${builtins.readFile ./powerline-prompt.sh}
-    # '';
+    initExtra = ''
+      ${builtins.readFile ./powerline-prompt.sh}
+    '';
   };
 }

@@ -1,28 +1,47 @@
 # ===== Zsh Powerline Prompt =====
-# Colors and styles (Zsh-safe escapes)
 
-BG_GREEN="%{\e[48;5;151m%}"     # pastel green background
-FG_GREEN="%{\e[38;5;151m%}"
-BG_BLUE="%{\e[48;5;74m%}"
-FG_BLUE="%{\e[38;5;74m%}"
-BG_DARK_BLUE="%{\e[48;5;67m%}"
-FG_DARK_BLUE="%{\e[38;5;67m%}"
-BG_CYAN="%{\e[48;5;116m%}"
-FG_CYAN="%{\e[38;5;116m%}"
-BG_RED="%{\e[48;5;181m%}"
-FG_RED="%{\e[38;5;181m%}"
-BG_BLACK="%{\e[48;5;0m%}"
-FG_BLACK="%{\e[38;5;0m%}"
-FG_WHITE="%{\e[38;5;255m%}"
-BG_WHITE="%{\e[48;5;255m%}"
+# ========== COLOR THEME ==========
+# Customize your prompt colors here
+THEME_USER_BG="151"           # pastel green - username background
+THEME_USER_FG="0"             # black - username text
+THEME_SPECIAL_DIR_BG="67"     # dark blue - special dirs (~ or custom) background
+THEME_SPECIAL_DIR_FG="255"    # white - special dirs text
+THEME_PATH_BG="74"            # blue - path background
+THEME_PATH_FG="255"           # white - path text
+THEME_GIT_BG="116"            # cyan - git branch background
+THEME_GIT_FG="0"              # black - git branch text
+THEME_PROMPT_BG="181"         # red/pink - prompt symbol background
+THEME_PROMPT_FG="255"         # white - prompt symbol text
+
+# ========== INTERNAL COLOR VARIABLES (Do not edit below this line) ==========
+BG_USER="%{\e[48;5;${THEME_USER_BG}m%}"
+FG_USER="%{\e[38;5;${THEME_USER_BG}m%}"
+BG_SPECIAL_DIR="%{\e[48;5;${THEME_SPECIAL_DIR_BG}m%}"
+FG_SPECIAL_DIR="%{\e[38;5;${THEME_SPECIAL_DIR_BG}m%}"
+BG_PATH="%{\e[48;5;${THEME_PATH_BG}m%}"
+FG_PATH="%{\e[38;5;${THEME_PATH_BG}m%}"
+BG_GIT="%{\e[48;5;${THEME_GIT_BG}m%}"
+FG_GIT="%{\e[38;5;${THEME_GIT_BG}m%}"
+BG_PROMPT="%{\e[48;5;${THEME_PROMPT_BG}m%}"
+FG_PROMPT="%{\e[38;5;${THEME_PROMPT_BG}m%}"
+
+# Text colors
+TXT_USER_FG="%{\e[38;5;${THEME_USER_FG}m%}"
+TXT_SPECIAL_DIR_FG="%{\e[38;5;${THEME_SPECIAL_DIR_FG}m%}"
+TXT_PATH_FG="%{\e[38;5;${THEME_PATH_FG}m%}"
+TXT_GIT_FG="%{\e[38;5;${THEME_GIT_FG}m%}"
+TXT_PROMPT_FG="%{\e[38;5;${THEME_PROMPT_FG}m%}"
+
+# Text styles
 BOLD="%{\e[1m%}"
 ITALIC="%{\e[3m%}"
 BOLD_ITALIC="%{\e[1;3m%}"
 RESET="%{\e[0m%}"
 
-RIGHT_ARROW=$'\ue0b0'           # 
-GIT_LOGO=$'\ue725'              # 
-WHITE_SEPARATOR=$'\ue0b1'       # 
+# Powerline symbols
+RIGHT_ARROW=$'\ue0b0'           # 
+GIT_LOGO=$'\ue725'              # 
+WHITE_SEPARATOR=$'\ue0b1'       # 
 
 # --- Git branch detection ---
 git_branch() {
@@ -38,62 +57,64 @@ format_path() {
   local has_subdirs=false
   local is_special_dir=false
 
-  if [[ $pwd_path == "/mnt/c/Users/Skylar"* ]]; then
-    is_special_dir=true
-    if [[ $pwd_path == "/mnt/c/Users/Skylar/Downloads/Code"* ]]; then
-      if [[ $pwd_path == "/mnt/c/Users/Skylar/Downloads/Code" ]]; then
-        path_display="${BG_DARK_BLUE}${FG_WHITE}${BOLD_ITALIC} code ${RESET}"
-        has_subdirs=false
-      else
-        local subdir=${pwd_path#/mnt/c/Users/Skylar/Downloads/Code}
-        path_display="${BG_DARK_BLUE}${FG_WHITE}${BOLD_ITALIC} code ${RESET}"
-        has_subdirs=true
-        local IFS='/'
-        for dir in $subdir; do
-          [[ -z $dir ]] && continue
-          if [[ -z $first ]]; then
-            path_display+="${FG_DARK_BLUE}${BG_BLUE}${RIGHT_ARROW}${RESET}${BG_BLUE}${FG_WHITE} $dir"
-            first=1
-          else
-            path_display+=" ${FG_WHITE}${WHITE_SEPARATOR}${RESET}${BG_BLUE} $dir"
-          fi
-        done
-      fi
-    else
-      if [[ $pwd_path == "/mnt/c/Users/Skylar" ]]; then
-        path_display="${BG_DARK_BLUE}${FG_WHITE}${BOLD_ITALIC} winhome ${RESET}"
-      else
-        local subdir=${pwd_path#/mnt/c/Users/Skylar}
-        path_display="${BG_DARK_BLUE}${FG_WHITE}${BOLD_ITALIC} winhome ${RESET}"
-        has_subdirs=true
-        local IFS='/'
-        for dir in $subdir; do
-          [[ -z $dir ]] && continue
-          if [[ -z $first ]]; then
-            path_display+="${FG_DARK_BLUE}${BG_BLUE}${RIGHT_ARROW}${RESET}${BG_BLUE}${FG_WHITE} $dir"
-            first=1
-          else
-            path_display+=" ${FG_WHITE}${WHITE_SEPARATOR}${RESET}${BG_BLUE} $dir"
-          fi
-        done
-      fi
-    fi
-  elif [[ $pwd_path == "~"* ]]; then
+  # WSL-specific path handling (commented out for Linux)
+  # if [[ $pwd_path == "/mnt/c/Users/Skylar"* ]]; then
+  #   is_special_dir=true
+  #   if [[ $pwd_path == "/mnt/c/Users/Skylar/Downloads/Code"* ]]; then
+  #     if [[ $pwd_path == "/mnt/c/Users/Skylar/Downloads/Code" ]]; then
+  #       path_display="${BG_SPECIAL_DIR}${TXT_SPECIAL_DIR_FG}${BOLD_ITALIC} code ${RESET}"
+  #       has_subdirs=false
+  #     else
+  #       local subdir=${pwd_path#/mnt/c/Users/Skylar/Downloads/Code}
+  #       path_display="${BG_SPECIAL_DIR}${TXT_SPECIAL_DIR_FG}${BOLD_ITALIC} code ${RESET}"
+  #       has_subdirs=true
+  #       local IFS='/'
+  #       for dir in $subdir; do
+  #         [[ -z $dir ]] && continue
+  #         if [[ -z $first ]]; then
+  #           path_display+="${FG_SPECIAL_DIR}${BG_PATH}${RIGHT_ARROW}${RESET}${BG_PATH}${TXT_PATH_FG} $dir"
+  #           first=1
+  #         else
+  #           path_display+=" ${TXT_PATH_FG}${WHITE_SEPARATOR}${RESET}${BG_PATH} $dir"
+  #         fi
+  #       done
+  #     fi
+  #   else
+  #     if [[ $pwd_path == "/mnt/c/Users/Skylar" ]]; then
+  #       path_display="${BG_SPECIAL_DIR}${TXT_SPECIAL_DIR_FG}${BOLD_ITALIC} winhome ${RESET}"
+  #     else
+  #       local subdir=${pwd_path#/mnt/c/Users/Skylar}
+  #       path_display="${BG_SPECIAL_DIR}${TXT_SPECIAL_DIR_FG}${BOLD_ITALIC} winhome ${RESET}"
+  #       has_subdirs=true
+  #       local IFS='/'
+  #       for dir in $subdir; do
+  #         [[ -z $dir ]] && continue
+  #         if [[ -z $first ]]; then
+  #           path_display+="${FG_SPECIAL_DIR}${BG_PATH}${RIGHT_ARROW}${RESET}${BG_PATH}${TXT_PATH_FG} $dir"
+  #           first=1
+  #         else
+  #           path_display+=" ${TXT_PATH_FG}${WHITE_SEPARATOR}${RESET}${BG_PATH} $dir"
+  #         fi
+  #       done
+  #     fi
+  #   fi
+  # el
+  if [[ $pwd_path == "~"* ]]; then
     is_special_dir=true
     if [[ $pwd_path == "~" ]]; then
-      path_display="${BG_DARK_BLUE}${FG_WHITE}${BOLD_ITALIC} ~ ${RESET}"
+      path_display="${BG_SPECIAL_DIR}${TXT_SPECIAL_DIR_FG}${BOLD_ITALIC} ~ ${RESET}"
     else
       local subdir=${pwd_path#\~}
-      path_display="${BG_DARK_BLUE}${FG_WHITE}${BOLD_ITALIC} ~ ${RESET}"
+      path_display="${BG_SPECIAL_DIR}${TXT_SPECIAL_DIR_FG}${BOLD_ITALIC} ~ ${RESET}"
       has_subdirs=true
       local IFS='/'
       for dir in $subdir; do
         [[ -z $dir ]] && continue
         if [[ -z $first ]]; then
-          path_display+="${FG_DARK_BLUE}${BG_BLUE}${RIGHT_ARROW}${RESET}${BG_BLUE}${FG_WHITE} $dir"
+          path_display+="${FG_SPECIAL_DIR}${BG_PATH}${RIGHT_ARROW}${RESET}${BG_PATH}${TXT_PATH_FG} $dir"
           first=1
         else
-          path_display+=" ${FG_WHITE}${WHITE_SEPARATOR}${RESET}${BG_BLUE} $dir"
+          path_display+=" ${TXT_PATH_FG}${WHITE_SEPARATOR}${RESET}${BG_PATH} $dir"
         fi
       done
     fi
@@ -102,14 +123,14 @@ format_path() {
     for dir in $pwd_path; do
       [[ -z $dir ]] && continue
       if [[ -z $first ]]; then
-        path_display+="${BG_BLUE}${FG_WHITE} $dir"
+        path_display+="${BG_PATH}${TXT_PATH_FG} $dir"
         first=1
       else
-        path_display+=" ${FG_WHITE}${WHITE_SEPARATOR}${RESET}${BG_BLUE} $dir"
+        path_display+=" ${TXT_PATH_FG}${WHITE_SEPARATOR}${RESET}${BG_PATH} $dir"
       fi
       has_subdirs=true
     done
-    [[ "$pwd_path" == "/" ]] && path_display="${BG_BLUE}${FG_WHITE} /"
+    [[ "$pwd_path" == "/" ]] && path_display="${BG_PATH}${TXT_PATH_FG} /"
   fi
 
   echo "$path_display"
@@ -122,9 +143,9 @@ segment_user() {
   local path_info=($(format_path))
   local is_special_dir=${path_info[-1]}
   if [[ $is_special_dir == "true" ]]; then
-    echo "${BG_GREEN}${FG_BLACK}${BOLD} %n ${RESET}${FG_GREEN}${BG_DARK_BLUE}${RIGHT_ARROW}${RESET}"
+    echo "${BG_USER}${TXT_USER_FG}${BOLD} %n ${RESET}${FG_USER}${BG_SPECIAL_DIR}${RIGHT_ARROW}${RESET}"
   else
-    echo "${BG_GREEN}${FG_BLACK}${BOLD} %n ${RESET}${FG_GREEN}${BG_BLUE}${RIGHT_ARROW}${RESET}"
+    echo "${BG_USER}${TXT_USER_FG}${BOLD} %n ${RESET}${FG_USER}${BG_PATH}${RIGHT_ARROW}${RESET}"
   fi
 }
 
@@ -140,29 +161,29 @@ segment_path_and_git() {
 
   if [[ $has_subdirs == "true" ]]; then
     if [[ -n $branch ]]; then
-      echo -n " ${RESET}${FG_BLUE}${BG_CYAN}${RIGHT_ARROW}${RESET}${BG_CYAN}${FG_BLACK}${BOLD} ${GIT_LOGO} $branch ${RESET}${FG_CYAN}${BG_RED}${RIGHT_ARROW}${RESET}"
+      echo -n " ${RESET}${FG_PATH}${BG_GIT}${RIGHT_ARROW}${RESET}${BG_GIT}${TXT_GIT_FG}${BOLD} ${GIT_LOGO} $branch ${RESET}${FG_GIT}${RIGHT_ARROW}${RESET}"
     else
-      echo -n " ${RESET}${FG_BLUE}${BG_RED}${RIGHT_ARROW}${RESET}"
+      echo -n " ${RESET}${FG_PATH}${RIGHT_ARROW}${RESET}"
     fi
   else
     if [[ -n $branch ]]; then
       if [[ $is_special_dir == "true" ]]; then
-        echo -n "${FG_DARK_BLUE}${BG_CYAN}${RIGHT_ARROW}${RESET}${BG_CYAN}${FG_BLACK}${BOLD} ${GIT_LOGO} $branch ${RESET}${FG_CYAN}${BG_RED}${RIGHT_ARROW}${RESET}"
+        echo -n "${FG_SPECIAL_DIR}${BG_GIT}${RIGHT_ARROW}${RESET}${BG_GIT}${TXT_GIT_FG}${BOLD} ${GIT_LOGO} $branch ${RESET}${FG_GIT}${RIGHT_ARROW}${RESET}"
       else
-        echo -n "${FG_BLUE}${BG_CYAN}${RIGHT_ARROW}${RESET}${BG_CYAN}${FG_BLACK}${BOLD} ${GIT_LOGO} $branch ${RESET}${FG_CYAN}${BG_RED}${RIGHT_ARROW}${RESET}"
+        echo -n "${FG_PATH}${BG_GIT}${RIGHT_ARROW}${RESET}${BG_GIT}${TXT_GIT_FG}${BOLD} ${GIT_LOGO} $branch ${RESET}${FG_GIT}${RIGHT_ARROW}${RESET}"
       fi
     else
       if [[ $is_special_dir == "true" ]]; then
-        echo -n "${FG_DARK_BLUE}${BG_RED}${RIGHT_ARROW}${RESET}"
+        echo -n "${FG_SPECIAL_DIR}${RIGHT_ARROW}${RESET}"
       else
-        echo -n "${FG_BLUE}${BG_RED}${RIGHT_ARROW}${RESET}"
+        echo -n "${FG_PATH}${RIGHT_ARROW}${RESET}"
       fi
     fi
   fi
 }
 
 segment_prompt() {
-  echo "${BG_RED}${FG_WHITE}${BOLD_ITALIC} %# ${RESET}${FG_RED}${RIGHT_ARROW}${RESET} "
+  echo " "
 }
 
 # --- Assemble final prompt ---
