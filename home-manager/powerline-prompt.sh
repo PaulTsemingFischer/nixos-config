@@ -43,8 +43,8 @@ COLOR_SOFT_GREEN=120  # #87FF87
 
 
 # ================= THEME COLORS =================
-THEME_USER_BG=$COLOR_PASTEL_PINK
-THEME_USER_FG=$COLOR_BLACK
+THEME_USER_BG=$COLOR_SOFT_PURPLE
+THEME_USER_FG=$COLOR_WHITE
 THEME_SPECIAL_DIR_BG=$COLOR_PASTEL_GREEN
 THEME_SPECIAL_DIR_FG=$COLOR_BLACK
 THEME_PATH_BG=$COLOR_PASTEL_BLUE
@@ -55,10 +55,10 @@ THEME_PROMPT_FG=$COLOR_WHITE
 # Git status colors
 THEME_GIT_CLEAN_BG=$COLOR_SOFT_PURPLE
 THEME_GIT_CLEAN_FG=$COLOR_BLACK
-THEME_GIT_STAGED_BG=$COLOR_YELLOW
+THEME_GIT_STAGED_BG=$COLOR_PASTEL_YELLOW
 THEME_GIT_STAGED_FG=$COLOR_BLACK
-THEME_GIT_UNCOMMITTED_BG=$COLOR_RED
-THEME_GIT_UNCOMMITTED_FG=$COLOR_WHITE
+THEME_GIT_UNCOMMITTED_BG=$COLOR_SOFT_PINK
+THEME_GIT_UNCOMMITTED_FG=$COLOR_BLACK
 
 # ================= INTERNAL COLOR VARIABLES =================
 BG_USER="%{\e[48;5;${THEME_USER_BG}m%}"
@@ -83,6 +83,11 @@ TXT_GIT_STAGED_FG="%{\e[38;5;${THEME_GIT_STAGED_FG}m%}"
 BG_GIT_UNCOMMITTED="%{\e[48;5;${THEME_GIT_UNCOMMITTED_BG}m%}"
 TXT_GIT_UNCOMMITTED_FG="%{\e[38;5;${THEME_GIT_UNCOMMITTED_FG}m%}"
 
+# Foreground colors for git arrow
+FG_GIT_CLEAN="%{\e[38;5;${THEME_GIT_CLEAN_BG}m%}"
+FG_GIT_STAGED="%{\e[38;5;${THEME_GIT_STAGED_BG}m%}"
+FG_GIT_UNCOMMITTED="%{\e[38;5;${THEME_GIT_UNCOMMITTED_BG}m%}"
+
 # ================= TEXT STYLES =================
 BOLD="%{\e[1m%}"
 ITALIC="%{\e[3m%}"
@@ -102,24 +107,24 @@ git_branch() {
 }
 
 # ================= GIT STATUS DETECTION =================
-git_status_color() {
+git_status_info() {
   if ! git rev-parse --is-inside-work-tree &>/dev/null; then
     return
   fi
 
-  local status=$(git status --porcelain 2>/dev/null)
+  local git_st=$(git status --porcelain 2>/dev/null)
 
-  if [[ -z $status ]]; then
-    echo "${BG_GIT_CLEAN} ${TXT_GIT_CLEAN_FG}"
+  if [[ -z $git_st ]]; then
+    echo "clean"
     return
   fi
 
-  if echo "$status" | grep -q "^[AMDR]"; then
-    echo "${BG_GIT_STAGED} ${TXT_GIT_STAGED_FG}"
+  if echo "$git_st" | grep -q "^[AMDR]"; then
+    echo "staged"
     return
   fi
 
-  echo "${BG_GIT_UNCOMMITTED} ${TXT_GIT_UNCOMMITTED_FG}"
+  echo "uncommitted"
 }
 
 # ================= PATH FORMATTING =================
@@ -191,15 +196,28 @@ segment_path_and_git() {
   echo -n "$path_content"
 
   if [[ -n $branch ]]; then
-    local git_colors=$(git_status_color)
-    # DEBUG: Uncomment these lines to see what's happening
-    echo "\nDEBUG git_colors: [$git_colors]" >&2
-    local git_bg=${git_colors%% *}
-    local git_fg=${git_colors##* }
-    echo "DEBUG git_bg: [$git_bg]" >&2
-    echo "DEBUG git_fg: [$git_fg]" >&2
-    echo "DEBUG THEME_GIT_CLEAN_BG: $THEME_GIT_CLEAN_BG" >&2
-    echo -n " ${RESET}${FG_PATH}${git_bg}${RIGHT_ARROW}${RESET}${git_bg}${git_fg}${BOLD} ${GIT_LOGO} $branch ${RESET}${FG_GIT}${RIGHT_ARROW}${RESET}"
+    local git_state=$(git_status_info)
+    
+    local git_bg git_fg git_arrow_fg
+    case $git_state in
+      clean)
+        git_bg="${BG_GIT_CLEAN}"
+        git_fg="${TXT_GIT_CLEAN_FG}"
+        git_arrow_fg="${FG_GIT_CLEAN}"
+        ;;
+      staged)
+        git_bg="${BG_GIT_STAGED}"
+        git_fg="${TXT_GIT_STAGED_FG}"
+        git_arrow_fg="${FG_GIT_STAGED}"
+        ;;
+      uncommitted)
+        git_bg="${BG_GIT_UNCOMMITTED}"
+        git_fg="${TXT_GIT_UNCOMMITTED_FG}"
+        git_arrow_fg="${FG_GIT_UNCOMMITTED}"
+        ;;
+    esac
+    
+    echo -n " ${RESET}${FG_PATH}${git_bg}${RIGHT_ARROW}${RESET}${git_bg}${git_fg}${BOLD} ${GIT_LOGO} $branch ${RESET}${git_arrow_fg}${RIGHT_ARROW}${RESET}"
   else
     if [[ $is_special_dir == "true" ]]; then
       echo -n "${FG_SPECIAL_DIR}${RIGHT_ARROW}${RESET}"
