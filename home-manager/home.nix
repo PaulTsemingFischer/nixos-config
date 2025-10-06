@@ -60,10 +60,10 @@
     spotify
     thefuck
     eza
-#nerd-fonts.fira-code
-#nerd-fonts.droid-sans-mono
-nerd-fonts.jetbrains-mono
-font-awesome
+    #nerd-fonts.fira-code
+    #nerd-fonts.droid-sans-mono
+    nerd-fonts.jetbrains-mono
+    font-awesome
   ];
 
   # Enable home-manager and git
