@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: {
-  program.zsh = {
+  programs.zsh = {
     enable = true;
     shellAliases = {
       rb = "sudo nixos-rebuild switch --flake .#nixos";
@@ -18,7 +18,7 @@
       gl = "git log --oneline";
       gld = "git log --oneline --decorate --graph --all";
       gs = "git status";
-      gs = "git commit -m $1";
+      gc = "git commit -m $1";
       gp = "git push";
     };
   };

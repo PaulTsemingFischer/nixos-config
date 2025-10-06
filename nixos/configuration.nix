@@ -69,22 +69,24 @@
   };
 
   # FIXME: Add the rest of your current configuration
- swapDevices = [ {
-    device = "/var/lib/swapfile";
-    size = 64*1024;
-  } ];
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 64 * 1024;
+    }
+  ];
 
- boot.kernelParams = [
-        # "resume=/var/lib/swapfile"
-        "resume_offset=95846400"
-];
+  boot.kernelParams = [
+    # "resume=/var/lib/swapfile"
+    "resume_offset=95846400"
+  ];
 
   boot.resumeDevice = "/dev/disk/by-uuid/8bb5a46d-128a-438d-931b-7f72274d26ee";
   powerManagement.enable = true;
- 
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  
+
   # Enable networking
   networking.networkmanager.enable = true;
 
@@ -118,7 +120,6 @@
     layout = "us";
     variant = "";
   };
-  
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -138,18 +139,24 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
-  
+
+hardware.bluetooth = {
+enable = true;
+powerOnBoot = true;
+};
+
   # Install firefox.
   programs.firefox.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
-  git
-  pkgs.parsec-bin
-  pciutils
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  wget
+    git
+    pkgs.parsec-bin
+    pkgs.tree
+    pciutils
   ];
 
   # TODO: Set your hostname
