@@ -140,10 +140,10 @@
     #media-session.enable = true;
   };
 
-hardware.bluetooth = {
-enable = true;
-powerOnBoot = true;
-};
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
 
   # Install firefox.
   programs.firefox.enable = true;
@@ -180,7 +180,7 @@ powerOnBoot = true;
     };
   };
 
-programs.zsh.enable = true;
+  programs.zsh.enable = true;
 
   # This setups a SSH server. Very important if you're setting up a headless system.
   # Feel free to remove if you don't need it.
