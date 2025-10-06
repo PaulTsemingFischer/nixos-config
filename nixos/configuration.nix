@@ -157,6 +157,8 @@
     pkgs.parsec-bin
     pkgs.tree
     pciutils
+    nixd
+    btop
   ];
 
   # TODO: Set your hostname

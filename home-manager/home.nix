@@ -19,6 +19,7 @@
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
     ./aliases.nix
+    ./pengl-zsh.nix
   ];
 
   nixpkgs = {
@@ -62,7 +63,7 @@
     eza
     nerd-fonts.jetbrains-mono
     font-awesome
-    vscode
+    vscode4
   ];
 
   # Enable home-manager and git
@@ -82,16 +83,6 @@
     enable = true;
     userName = "Paul Fischer";
     userEmail = "paultsemingfischer@gmail.com";
-  };
-
-  programs.zsh = {
-    enable = true;
-    oh-my-zsh = {
-      # "ohMyZsh" without Home Manager
-      enable = true;
-      plugins = ["git" "thefuck"];
-      theme = "agnoster"; #robbyrussell
-    };
   };
 
   fonts.fontconfig.enable = true;

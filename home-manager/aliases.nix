@@ -14,7 +14,7 @@
       jh = "cd ~/Documents/nix-config/home-manager";
 
       #Edit
-      ec = "sudo code ~/Documents/nix-config/nixos/configuration.nix";
+      ec = "code ~/Documents/nix-config/nixos/configuration.nix";
       ecd = "code ~/Documents/nix-config";
       eh = "code ~/Documents/nix-config/home-manager/home.nix";
       ea = "code ~/Documents/nix-config/home-manager/aliases.nix";
