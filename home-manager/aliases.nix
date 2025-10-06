@@ -5,8 +5,11 @@
   ...
 }: {
   programs.zsh = {
-    enable = true;
+    #enable = true;
     shellAliases = {
+      #OMZ
+      ls = "exa --icons";
+
       rb = "sudo nixos-rebuild switch --flake .#nixos";
       rh = "home-manager switch --flake .#pengl@nixos";
       nfmt = "nix fmt ./";

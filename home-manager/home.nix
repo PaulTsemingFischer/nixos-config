@@ -58,6 +58,9 @@
     steam
     discord
     spotify
+    thefuck
+    eza
+(nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
   ];
 
   # Enable home-manager and git
@@ -78,16 +81,24 @@
     userName = "Paul Fischer";
     userEmail = "paultsemingfischer@gmail.com";
   };
-  
-    
+
   programs.zsh = {
-  enable = true;
-  oh-my-zsh = { # "ohMyZsh" without Home Manager
     enable = true;
-    plugins = [ "git" "thefuck" ];
-    theme = "robbyrussell";
+    oh-my-zsh = {
+      # "ohMyZsh" without Home Manager
+      enable = true;
+      plugins = ["git" "thefuck"];
+      theme = "agnoster"; #robbyrussell
+    };
   };
-};
+
+  fonts.fontconfig.enable = true;
+
+  programs.eza = {
+    enable = true;
+    icons = true;
+  };
+
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 
