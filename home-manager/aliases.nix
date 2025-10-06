@@ -15,9 +15,9 @@
       jh = "cd ~/Documents/nix-config/home-manager";
 
       #Edit
-      ec = "sudo nano ~/Documents/nix-config/nixos/configuration.nix";
-      eh = "nano ~/Documents/nix-config/home-manager/home.nix";
-      ea = "nano ~/Documents/nix-config/home-manager/aliases.nix";
+      ec = "sudo code ~/Documents/nix-config/nixos/configuration.nix";
+      eh = "code ~/Documents/nix-config/home-manager/home.nix";
+      ea = "code ~/Documents/nix-config/home-manager/aliases.nix";
 
       #nixos
       nfmt = "nix fmt ./";
@@ -28,7 +28,7 @@
       rh = "(cd ~/Documents/nix-config && nix fmt ./); home-manager switch --flake ~/Documents/nix-config#pengl@nixos";
 
       #system
-      hiberate = "sudo systemctl hibernate";
+      hibernate = "sudo systemctl hibernate";
       bye = "shutdown -r now";
       hg = "history | grep $1";
 
