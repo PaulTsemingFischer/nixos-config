@@ -79,8 +79,15 @@
     userEmail = "paultsemingfischer@gmail.com";
   };
   
-  programs.zsh.enable = true;  
-
+    
+  programs.zsh = {
+  enable = true;
+  oh-my-zsh = { # "ohMyZsh" without Home Manager
+    enable = true;
+    plugins = [ "git" "thefuck" ];
+    theme = "robbyrussell";
+  };
+};
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 
