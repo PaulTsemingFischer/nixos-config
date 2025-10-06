@@ -60,7 +60,10 @@
     spotify
     thefuck
     eza
-(nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
+#nerd-fonts.fira-code
+#nerd-fonts.droid-sans-mono
+nerd-fonts.jetbrains-mono
+font-awesome
   ];
 
   # Enable home-manager and git
@@ -96,7 +99,7 @@
 
   programs.eza = {
     enable = true;
-    icons = true;
+    icons = "auto";
   };
 
   # Nicely reload system units when changing configs

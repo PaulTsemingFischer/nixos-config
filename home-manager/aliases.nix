@@ -10,9 +10,9 @@
       #OMZ
       ls = "exa --icons";
 
-      rb = "sudo nixos-rebuild switch --flake .#nixos";
-      rh = "home-manager switch --flake .#pengl@nixos";
       nfmt = "nix fmt ./";
+      rb = "nix fmt ./; sudo nixos-rebuild switch --flake .#nixos";
+      rh = "nix fmt ./; home-manager switch --flake .#pengl@nixose";
       hiberate = "sudo systemctl hibernate";
       bye = "shutdown -r now";
       hg = "history | grep $1";
