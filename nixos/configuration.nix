@@ -161,14 +161,10 @@
     btop
   ];
 
-  # TODO: Set your hostname
   networking.hostName = "nixos";
 
-  # TODO: Configure your system-wide user settings (groups, etc), add more users as needed.
   users.users = {
-    # FIXME: Replace with your username
     pengl = {
-      # TODO: You can set an initial password for your user.
       # If you do, you can skip setting a root password by passing '--no-root-passwd' to nixos-install.
       # Be sure to change it (using passwd) after rebooting!
       initialPassword = "chbs";
@@ -196,6 +192,11 @@
       PasswordAuthentication = false;
     };
   };
+
+  #Needed for windsurf
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = [];
+
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "25.05";
 }

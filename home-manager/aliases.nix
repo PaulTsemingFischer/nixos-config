@@ -36,10 +36,8 @@
       gs = "git status";
     };
     initExtra = ''
-      #      gaa() { git add .; }
-      #      gcmsg() { git commit -m "$1"; }
-            gac() { gaa && gcmsg "$1"; }
-            gacp() { gaa && gcmsg "$1" && gp; }
+      gac() { gaa && gcmsg "$1"; }
+      gacp() { gaa && gcmsg "$1" && gp; }
     '';
   };
 }
