@@ -66,6 +66,10 @@
     # Opinionated: make flake registry and nix path match flake inputs
     registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
     nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
+
+    extraOptions = ''
+      warn-dirty = false
+    '';
   };
 
   # FIXME: Add the rest of your current configuration
@@ -154,7 +158,7 @@
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
     git
-    pkgs.weztermc
+    wezterm
     pkgs.parsec-bin
     pkgs.tree
     pciutils

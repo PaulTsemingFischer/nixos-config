@@ -1,7 +1,7 @@
 # ===== Zsh Powerline Prompt with Color Constants and Dynamic Git =====
 
 # ================= BASIC COLORS =================
-COLOR_BLACK=0        # #000000
+COLOR_BLACK=16        # #000000
 COLOR_RED=196        # #FF0000
 COLOR_GREEN=46       # #00FF00
 COLOR_YELLOW=226     # #FFFF00
