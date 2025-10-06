@@ -57,6 +57,7 @@
   home.packages = with pkgs; [
     steam
     discord
+    pkgs.vencord
     spotify
     thefuck
     eza

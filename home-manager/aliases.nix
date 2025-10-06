@@ -35,7 +35,7 @@
       gld = "git log --oneline --decorate --graph --all";
       gs = "git status";
     };
-    initExtra = ''
+    initContent = ''
       gac() { gaa && gcmsg "$1"; }
       gacp() { gaa && gcmsg "$1" && gp; }
     '';
