@@ -47,7 +47,6 @@
     };
   };
 
-  # TODO: Set your username
   home = {
     username = "pengl";
     homeDirectory = "/home/pengl";
@@ -63,7 +62,7 @@
     eza
     nerd-fonts.jetbrains-mono
     font-awesome
-    vscode4
+    vscode
   ];
 
   # Enable home-manager and git
