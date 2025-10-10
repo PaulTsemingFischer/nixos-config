@@ -47,6 +47,8 @@
     };
   };
 
+  news.display = "silent";
+
   home = {
     username = "pengl";
     homeDirectory = "/home/pengl";
