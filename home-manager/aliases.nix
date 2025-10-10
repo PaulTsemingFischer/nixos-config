@@ -21,8 +21,8 @@
 
       #nixos
       nfmt = "nix fmt ./";
-      rs = "(cd ~/Documents/nix-config && nix fmt ./); sudo nixos-rebuild switch --flake ~/Documents/nix-config#nixos";
-      rh = "(cd ~/Documents/nix-config && nix fmt ./); home-manager switch --flake ~/Documents/nix-config#pengl@nixos";
+      rs = "(cd ~/Documents/nix-config && nix fmt ./; gaa); sudo nixos-rebuild switch --flake ~/Documents/nix-config#nixos";
+      rh = "(cd ~/Documents/nix-config && nix fmt ./; gaa); home-manager switch --flake ~/Documents/nix-config#pengl@nixos";
       ra = "rs; rh";
 
       #system
