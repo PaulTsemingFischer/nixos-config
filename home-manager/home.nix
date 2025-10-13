@@ -57,15 +57,26 @@
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
   home.packages = with pkgs; [
-    steam
     discord
-    pkgs.vencord
+    vencord
     spotify
     thefuck
     eza
     nerd-fonts.jetbrains-mono
     font-awesome
     vscode
+    prismlauncher
+    lunar-client
+    google-chrome
+    gh
+    wezterm
+    warp-terminal
+    parsec-bin
+    tree
+    pciutils
+    nixd
+    btop
+    git
   ];
 
   # Enable home-manager and git

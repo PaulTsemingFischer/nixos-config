@@ -72,22 +72,6 @@
     '';
   };
 
-  # FIXME: Add the rest of your current configuration
-  swapDevices = [
-    {
-      device = "/var/lib/swapfile";
-      size = 64 * 1024;
-    }
-  ];
-
-  boot.kernelParams = [
-    # "resume=/var/lib/swapfile"
-    "resume_offset=95846400"
-  ];
-
-  boot.resumeDevice = "/dev/disk/by-uuid/8bb5a46d-128a-438d-931b-7f72274d26ee";
-  powerManagement.enable = true;
-
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -155,15 +139,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
     git
-    wezterm
-    pkgs.parsec-bin
-    pkgs.tree
-    pciutils
-    nixd
-    btop
   ];
 
   networking.hostName = "nixos";
