@@ -12,6 +12,7 @@
     };
     initContent = ''
       ${builtins.readFile ./powerline-prompt.sh}
+      eval $(opam env)
     '';
   };
 }

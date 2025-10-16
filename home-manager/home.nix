@@ -77,6 +77,17 @@
     nixd
     btop
     git
+    protonup
+    heroic
+    steam-run
+
+    #OCaml
+    opam
+    ocaml
+    ocamlPackages.findlib
+    ocamlPackages.dune_3
+    gcc
+    gnumake
   ];
 
   # Enable home-manager and git
@@ -103,6 +114,11 @@
   programs.eza = {
     enable = true;
     icons = "auto";
+  };
+
+  #Proton
+  home.sessionVariables = {
+    STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
   };
 
   # Nicely reload system units when changing configs

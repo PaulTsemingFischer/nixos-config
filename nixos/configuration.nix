@@ -141,6 +141,8 @@
   environment.systemPackages = with pkgs; [
     #  wget
     git
+    mangohud
+    gnomeExtensions.touch-x
   ];
 
   networking.hostName = "nixos";
@@ -178,6 +180,39 @@
   #Needed for windsurf
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = [];
+
+  #NVIDIA stuff
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+
+  services.xserver.videoDrivers = [
+    "modesetting" # example for Intel iGPU; use "amdgpu" here instead if your iGPU is AMD
+    "nvidia"
+  ];
+
+  hardware.nvidia = {
+    modesetting.enable = true;
+    # Set to true for RTX/GTX 16xx series (Turing+), false for older GPUs
+    open = false; # Change to true if you have a newer GPU
+
+    prime = {
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:1:0:0";
+    };
+  };
+
+  #Steam
+  programs.steam.enable = true;
+  programs.steam.gamescopeSession.enable = true;
+  programs.gamemode.enable = true;
+
+  #Proton GE
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "25.05";
