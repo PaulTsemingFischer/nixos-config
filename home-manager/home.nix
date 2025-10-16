@@ -80,7 +80,7 @@
 
     #System
     btop
-    nvtopPackages.v3d
+    # nvtopPackages.v3d
     tree
     wezterm
     warp-terminal

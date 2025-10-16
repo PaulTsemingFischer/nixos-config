@@ -142,7 +142,7 @@
     #  wget
     git
     mangohud
-
+    nvtopPackages.full
     #Gnome extensions
   ];
 
