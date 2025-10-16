@@ -219,10 +219,10 @@ segment_path_and_git() {
     
     echo -n " ${RESET}${FG_PATH}${git_bg}${RIGHT_ARROW}${RESET}${git_bg}${git_fg}${BOLD} ${GIT_LOGO} $branch ${RESET}${git_arrow_fg}${RIGHT_ARROW}${RESET}"
   else
-    if [[ $is_special_dir == "true" ]]; then
-      echo -n "${FG_SPECIAL_DIR}${RIGHT_ARROW}${RESET}"
+    if [[ $has_subdirs == "true" ]]; then
+      echo -n " ${RESET}${FG_PATH}${RIGHT_ARROW}${RESET}"
     else
-      echo -n "${FG_PATH}${RIGHT_ARROW}${RESET}"
+      echo -n "${FG_SPECIAL_DIR}${RIGHT_ARROW}${RESET}"
     fi
   fi
 }
