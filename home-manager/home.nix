@@ -60,26 +60,39 @@
     discord
     vencord
     spotify
-    thefuck
-    eza
-    nerd-fonts.jetbrains-mono
-    font-awesome
+    google-chrome
+    parsec-bin
+    pkgs.mesa-demos #GPU testing
+    pciutils #lspci
+    nixd
+
+    #Coding
+    git
+    gh
     vscode
+
+    #Gaming
     prismlauncher
     lunar-client
-    google-chrome
-    gh
-    wezterm
-    warp-terminal
-    parsec-bin
-    tree
-    pciutils
-    nixd
-    btop
-    git
     protonup
     heroic
     steam-run
+
+    #System
+    btop
+    nvtopPackages.v3d
+    tree
+    wezterm
+    warp-terminal
+    eza
+    nerd-fonts.jetbrains-mono
+    font-awesome
+    thefuck
+
+    #Dropbox
+    dropbox
+    libappindicator-gtk3
+    libdbusmenu-gtk3
 
     #OCaml
     opam
@@ -88,10 +101,29 @@
     ocamlPackages.dune_3
     gcc
     gnumake
+
+    #Gnome
+    gnomeExtensions.touch-x #OSK
+    gnomeExtensions.appindicator #Needed for Dropbox
   ];
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
+
+  #Gnome
+  dconf.settings = {
+    "org/gnome/shell" = {
+      disable-user-extensions = false;
+      enabled-extensions = with pkgs.gnomeExtensions; [
+        "touchx@neuromorph"
+        "appindicatorsupport@rgcjonas.gmail.com"
+      ];
+    };
+
+    "org/gnome/desktop/a11y/applications" = {
+      screen-keyboard-enabled = true;
+    };
+  };
 
   programs.ssh = {
     enable = true;

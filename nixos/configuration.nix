@@ -142,7 +142,8 @@
     #  wget
     git
     mangohud
-    gnomeExtensions.touch-x
+
+    #Gnome extensions
   ];
 
   networking.hostName = "nixos";
@@ -188,7 +189,6 @@
   };
 
   services.xserver.videoDrivers = [
-    "modesetting" # example for Intel iGPU; use "amdgpu" here instead if your iGPU is AMD
     "nvidia"
   ];
 
