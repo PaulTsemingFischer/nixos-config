@@ -34,6 +34,10 @@
       gl = "git log --oneline";
       gld = "git log --oneline --decorate --graph --all";
       gs = "git status";
+
+      #Steam(can't put these in launch options, aliases aren't working there)
+      steam-nvidia = "DRI_PRIME=1 __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia %command%";
+      msteam-nvidia = "mangohud DRI_PRIME=1 __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia %command%";
     };
     initContent = ''
       gac() { gaa && gcmsg "$1"; }
