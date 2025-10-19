@@ -57,14 +57,18 @@
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
   home.packages = with pkgs; [
-    discord
     vencord
     spotify
     google-chrome
     parsec-bin
-    pkgs.mesa-demos #GPU testing
-    pciutils #lspci
+
     nixd
+
+    #Communication
+    discord
+    mattermost-desktop
+    zoom-us
+    zapzap # (Whatsapp)
 
     #Coding
     git
@@ -79,7 +83,12 @@
     steam-run
 
     #System
-    btop
+    (btop.override {
+      cudaSupport = true; # Enable NVIDIA GPU support
+    })
+    pkgs.mesa-demos #GPU testing
+    pciutils #lspci
+
     # nvtopPackages.v3d
     tree
     wezterm
