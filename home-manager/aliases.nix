@@ -38,6 +38,11 @@
       #Steam(can't put these in launch options, aliases aren't working there)
       steam-nvidia = "DRI_PRIME=1 __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia %command%";
       msteam-nvidia = "mangohud DRI_PRIME=1 __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia %command%";
+
+      #ssh
+
+      sshc = "ssh ptf34@ugclinux.cs.cornell.edu";
+      sshcy = "ssh -Y ptf34@ugclinux.cs.cornell.edu";
     };
     initContent = ''
       gac() { gaa && gcmsg "$1"; }

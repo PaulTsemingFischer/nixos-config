@@ -140,6 +140,10 @@
       Host github.com
         IdentityFile ~/.ssh/id_ed25519
         IdentitiesOnly yes
+
+      Host github.coecis.cornell.edu
+        IdentityFile ~/.ssh/id_ed25519
+        IdentitiesOnly yes
     '';
   };
   services.ssh-agent.enable = true;
