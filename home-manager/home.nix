@@ -61,11 +61,13 @@
     spotify
     google-chrome
     parsec-bin
+    libinput #Lists keyboard ids
 
     nixd
 
     #Communication
     discord
+    vesktop
     mattermost-desktop
     zoom-us
     zapzap # (Whatsapp)
@@ -74,6 +76,26 @@
     git
     gh
     vscode
+
+    #C++
+    clang-tools
+    cmake
+
+    #OCaml
+    opam
+    ocaml
+    ocamlPackages.findlib
+    ocamlPackages.dune_3
+    gcc
+    gnumake
+
+    #Python
+    python313
+    python313Packages.pip
+    python313Packages.pyyaml
+    python313Packages.pillow
+    python313Packages.shortuuid
+    # nix-shell -p python3Packages.pyyaml python3Packages.pillow python3Packages.shortuuid
 
     #Gaming
     prismlauncher
@@ -103,17 +125,10 @@
     libappindicator-gtk3
     libdbusmenu-gtk3
 
-    #OCaml
-    opam
-    ocaml
-    ocamlPackages.findlib
-    ocamlPackages.dune_3
-    gcc
-    gnumake
-
     #Gnome
     gnomeExtensions.touch-x #OSK
     gnomeExtensions.appindicator #Needed for Dropbox
+    wmctrl #full screen stuff
   ];
 
   # Enable home-manager and git
@@ -134,6 +149,15 @@
     };
   };
 
+  #Wezterm
+  programs.wezterm = {
+    enable = true;
+    enableZshIntegration = true;
+    enableBashIntegration = true;
+    extraConfig = builtins.readFile ./wezterm.lua;
+  };
+
+  #SSH
   programs.ssh = {
     enable = true;
     extraConfig = ''
@@ -148,6 +172,7 @@
   };
   services.ssh-agent.enable = true;
 
+  #Git
   programs.git = {
     enable = true;
     userName = "Paul Fischer";

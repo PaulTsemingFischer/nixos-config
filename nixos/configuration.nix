@@ -143,7 +143,7 @@
     git
     mangohud
     nvtopPackages.full
-    #Gnome extensions
+    keyd
   ];
 
   networking.hostName = "nixos";
@@ -233,7 +233,20 @@
   programs.steam.gamescopeSession.enable = true;
   programs.gamemode.enable = true;
 
-  #Proton GE
+  #Keyboard
+  services.keyd.enable = true;
+
+  services.keyd.keyboards = {
+    bluetooth = {
+      ids = ["04e8:7021"]; #Samsers keyboard
+      settings = {
+        main = {
+          leftmeta = "leftalt";
+          leftalt = "leftmeta";
+        };
+      };
+    };
+  };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "25.05";
