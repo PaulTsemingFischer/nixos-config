@@ -49,8 +49,8 @@ config.keys = {
   -- Navigate between panes
   { key = 'H', mods = 'CTRL|SHIFT', action = wezterm.action.ActivatePaneDirection 'Left' },
   { key = 'L', mods = 'CTRL|SHIFT', action = wezterm.action.ActivatePaneDirection 'Right' },
-  { key = 'J', mods = 'CTRL|SHIFT', action = wezterm.action.ActivatePaneDirection 'Up' },
-  { key = 'K', mods = 'CTRL|SHIFT', action = wezterm.action.ActivatePaneDirection 'Down' },
+  { key = 'J', mods = 'CTRL|SHIFT', action = wezterm.action.ActivatePaneDirection 'Down' },
+  { key = 'K', mods = 'CTRL|SHIFT', action = wezterm.action.ActivatePaneDirection 'Up' },
   
   -- Resize panes
   { key = 'LeftArrow', mods = 'CTRL|ALT', action = wezterm.action.AdjustPaneSize { 'Left', 5 } },
