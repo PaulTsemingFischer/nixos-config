@@ -1,5 +1,4 @@
-# This is your home-manager configuration file
-# Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
+# Home-manager config file
 {
   inputs,
   outputs,
@@ -128,6 +127,7 @@
     #Gnome
     gnomeExtensions.touch-x #OSK
     gnomeExtensions.appindicator #Needed for Dropbox
+    gnomeExtensions.color-picker
     wmctrl #full screen stuff
   ];
 
@@ -147,14 +147,6 @@
     "org/gnome/desktop/a11y/applications" = {
       screen-keyboard-enabled = true;
     };
-  };
-
-  #Wezterm
-  programs.wezterm = {
-    enable = true;
-    enableZshIntegration = true;
-    enableBashIntegration = true;
-    extraConfig = builtins.readFile ./wezterm.lua;
   };
 
   #SSH
