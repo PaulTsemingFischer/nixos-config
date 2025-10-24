@@ -12,6 +12,10 @@
       #Jump
       jc = "cd ~/Documents/nix-config";
       jh = "cd ~/Documents/nix-config/home-manager";
+      jd = "cd ~/Dropbox";
+      j4414 = "jd; cd cs4414";
+      j3110 = "jd; cd cs3110";
+      j4110 = "jd; cd cs4110";
 
       #Edit
       ec = "code ~/Documents/nix-config/nixos/configuration.nix";

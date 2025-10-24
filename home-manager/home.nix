@@ -79,21 +79,22 @@
     #C++
     clang-tools
     cmake
+    gcc
 
     #OCaml
     opam
     ocaml
     ocamlPackages.findlib
     ocamlPackages.dune_3
-    gcc
     gnumake
+    z3
 
     #Python
-    python313
-    python313Packages.pip
-    python313Packages.pyyaml
-    python313Packages.pillow
-    python313Packages.shortuuid
+    # python313
+    # python313Packages.pip
+    # python313Packages.pyyaml
+    # python313Packages.pillow
+    # python313Packages.shortuuid
     # nix-shell -p python3Packages.pyyaml python3Packages.pillow python3Packages.shortuuid
 
     #Gaming
@@ -120,12 +121,14 @@
     thefuck
 
     #Dropbox
-    dropbox
-    libappindicator-gtk3
-    libdbusmenu-gtk3
+    maestral
+    maestral-gui
+    # libappindicator-gtk3
+    # libdbusmenu-gtk3
 
     #Gnome
-    gnomeExtensions.touch-x #OSK
+    gnome-tweaks #Used for disabling middle mouse paste on trackpads
+    # gnomeExtensions.touch-x #OSK
     gnomeExtensions.appindicator #Needed for Dropbox
     gnomeExtensions.color-picker
     wmctrl #full screen stuff
