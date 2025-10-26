@@ -144,6 +144,7 @@
     mangohud
     nvtopPackages.full
     keyd
+    alsamixer #speakers
   ];
 
   networking.hostName = "nixos";

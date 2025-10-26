@@ -61,6 +61,8 @@
     google-chrome
     parsec-bin
     libinput #Lists keyboard ids
+    krita
+    gimp3-with-plugins
 
     nixd
 
@@ -76,10 +78,11 @@
     gh
     vscode
 
-    #C++
+    #C/C++
     clang-tools
     cmake
     gcc
+    valgrind
 
     #OCaml
     opam
