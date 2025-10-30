@@ -49,29 +49,44 @@
     # These are usually stuff you would upstream into home-manager
     homeManagerModules = import ./modules/home-manager;
 
-    # NixOS configuration entrypoint
-    # Available through 'nixos-rebuild --flake .#your-hostname'
+    # NixOS configurations for each machine
     nixosConfigurations = {
-      # FIXME replace with your hostname
-      nixos = nixpkgs.lib.nixosSystem {
+      # Laptop configuration
+      penglaptop = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
-          # > Our main nixos configuration file <
+          ./hosts/penglaptop/configuration.nix
+          ./nixos/configuration.nix
+        ];
+      };
+
+      # WSL configuration
+      penglwsl = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          ./hosts/penglwsl/configuration.nix
           ./nixos/configuration.nix
         ];
       };
     };
 
-    # Standalone home-manager configuration entrypoint
-    # Available through 'home-manager --flake .#your-username@your-hostname'
+    # Home-manager configurations for each machine
     homeConfigurations = {
-      # FIXME replace with your username@hostname
-      "pengl@nixos" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+      "pengl@penglaptop" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
-          # > Our main home-manager configuration file <
-          ./home-manager/home.nix
+          ./hosts/penglaptop/home.nix
+          ./home-manager/default.nix
+        ];
+      };
+
+      "pengl@penglwsl" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {inherit inputs outputs;};
+        modules = [
+          ./hosts/penglwsl/home.nix
+          ./home-manager/default.nix
         ];
       };
     };

@@ -68,25 +68,25 @@
 
     nixd
 
-    #Communication
+    # Communication
     discord
     vesktop
     mattermost-desktop
     zoom-us
     zapzap # (Whatsapp)
 
-    #Coding
+    # Coding
     git
     gh
     vscode
 
-    #C/C++
+    # C/C++
     clang-tools
     cmake
     gcc
     valgrind
 
-    #OCaml
+    # OCaml
     opam
     ocaml
     ocamlPackages.findlib
@@ -94,22 +94,14 @@
     gnumake
     z3
 
-    #Python
-    # python313
-    # python313Packages.pip
-    # python313Packages.pyyaml
-    # python313Packages.pillow
-    # python313Packages.shortuuid
-    # nix-shell -p python3Packages.pyyaml python3Packages.pillow python3Packages.shortuuid
-
-    #Gaming
+    # Gaming
     prismlauncher
     lunar-client
     protonup
     heroic
     steam-run
 
-    #System
+    # System
     (btop.override {
       cudaSupport = true; # Enable NVIDIA GPU support
     })
@@ -117,7 +109,6 @@
     pkgs.mesa-demos #GPU testing
     pciutils #lspci
 
-    # nvtopPackages.v3d
     tree
     wezterm
     warp-terminal
@@ -126,7 +117,7 @@
     font-awesome
     thefuck
 
-    #Dropbox
+    # Dropbox
     maestral
     maestral-gui
     # libappindicator-gtk3

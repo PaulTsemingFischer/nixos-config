@@ -23,11 +23,8 @@
       eh = "code ~/Documents/nix-config/home-manager/home.nix";
       ea = "code ~/Documents/nix-config/home-manager/aliases.nix";
 
-      #nixos
+      #nixos - Now dynamically determines hostname
       nfmt = "nix fmt ./";
-      rs = "(cd ~/Documents/nix-config && nix fmt ./; gaa); sudo nixos-rebuild switch --flake ~/Documents/nix-config#nixos";
-      rh = "(cd ~/Documents/nix-config && nix fmt ./; gaa); home-manager switch --flake ~/Documents/nix-config#pengl@nixos";
-      ra = "rs; rh";
 
       #system
       hibernate = "sudo systemctl hibernate";
@@ -44,11 +41,38 @@
       msteam-nvidia = "mangohud DRI_PRIME=1 __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia %command%";
 
       #ssh
-
       sshc = "ssh ptf34@ugclinux.cs.cornell.edu";
       sshcy = "ssh -Y ptf34@ugclinux.cs.cornell.edu";
     };
-    initContent = ''
+    
+    initExtra = ''
+      # Function to get current hostname for flake configuration
+      get_flake_host() {
+        local hostname=$(hostname)
+        echo "$hostname"
+      }
+
+      # Dynamic NixOS rebuild
+      rs() {
+        local host=$(get_flake_host)
+        (cd ~/Documents/nix-config && nix fmt ./; gaa)
+        sudo nixos-rebuild switch --flake ~/Documents/nix-config#$host
+      }
+
+      # Dynamic home-manager rebuild
+      rh() {
+        local host=$(get_flake_host)
+        (cd ~/Documents/nix-config && nix fmt ./; gaa)
+        home-manager switch --flake ~/Documents/nix-config#pengl@$host
+      }
+
+      # Rebuild both
+      ra() {
+        rs
+        rh
+      }
+
+      # Git helper functions
       gac() { gaa && gcmsg "$1"; }
       gacp() { gaa && gcmsg "$1" && gp; }
     '';

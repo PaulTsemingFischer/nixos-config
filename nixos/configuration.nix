@@ -66,7 +66,6 @@
     # Opinionated: make flake registry and nix path match flake inputs
     registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
     nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
-
     extraOptions = ''
       warn-dirty = false
     '';
@@ -83,7 +82,6 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "en_US.UTF-8";
     LC_IDENTIFICATION = "en_US.UTF-8";
@@ -135,6 +133,7 @@
 
   # Install firefox.
   programs.firefox.enable = true;
+  programs.zsh.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -146,8 +145,6 @@
     keyd
     alsamixer #speakers
   ];
-
-  networking.hostName = "nixos";
 
   users.users = {
     pengl = {
@@ -164,10 +161,6 @@
     };
   };
 
-  programs.zsh.enable = true;
-
-  # This setups a SSH server. Very important if you're setting up a headless system.
-  # Feel free to remove if you don't need it.
   services.openssh = {
     enable = true;
     settings = {
@@ -182,57 +175,6 @@
   #Needed for windsurf
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = [];
-
-  #NVIDIA stuff
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-  };
-
-  services.xserver.videoDrivers = [
-    "nvidia"
-  ];
-
-  hardware.nvidia = {
-    modesetting.enable = true;
-    # Set to true for RTX/GTX 16xx series (Turing+), false for older GPUs
-    open = false; # Change to true if you have a newer GPU
-
-    prime = {
-      offload = {
-        enable = true;
-        enableOffloadCmd = true;
-      };
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:1:0:0";
-    };
-  };
-
-  #Steam
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
-    # Enable FHS environment for games that expect traditional Linux paths
-    package = pkgs.steam.override {
-      extraPkgs = pkgs:
-        with pkgs; [
-          xorg.libXcursor
-          xorg.libXi
-          xorg.libXinerama
-          xorg.libXScrnSaver
-          libpng
-          libpulseaudio
-          libvorbis
-          stdenv.cc.cc.lib
-          libkrb5
-          keyutils
-        ];
-    };
-  };
-  programs.steam.gamescopeSession.enable = true;
-  programs.gamemode.enable = true;
 
   #Keyboard
   services.keyd.enable = true;
