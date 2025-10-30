@@ -44,7 +44,7 @@
       sshc = "ssh ptf34@ugclinux.cs.cornell.edu";
       sshcy = "ssh -Y ptf34@ugclinux.cs.cornell.edu";
     };
-    
+
     initExtra = ''
       # Function to get current hostname for flake configuration
       get_flake_host() {

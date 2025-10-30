@@ -21,7 +21,6 @@
     # ./users.nix
 
     # Import your generated (nixos-generate-config) hardware configuration
-    ./hardware-configuration.nix
   ];
 
   nixpkgs = {
@@ -143,7 +142,7 @@
     mangohud
     nvtopPackages.full
     keyd
-    alsamixer #speakers
+    # alsamixer #speakers
   ];
 
   users.users = {

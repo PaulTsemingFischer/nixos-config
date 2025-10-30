@@ -6,8 +6,8 @@
   pkgs,
   ...
 }: {
-  # Penglwsl-specific home-manager configuration
- 
+  # Penglaptop-specific home-manager configuration
+
   home.packages = with pkgs; [
   ];
 }

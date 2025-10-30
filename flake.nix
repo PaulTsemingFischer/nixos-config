@@ -51,7 +51,7 @@
 
     # NixOS configurations for each machine
     nixosConfigurations = {
-      # Laptop configuration
+      # Penglaptop configuration
       penglaptop = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
@@ -77,7 +77,7 @@
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./hosts/penglaptop/home.nix
-          ./home-manager/default.nix
+          ./home-manager/home.nix
         ];
       };
 
@@ -86,7 +86,7 @@
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./hosts/penglwsl/home.nix
-          ./home-manager/default.nix
+          ./home-manager/home.nix
         ];
       };
     };
