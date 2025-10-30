@@ -63,6 +63,8 @@
     libinput #Lists keyboard ids
     krita
     gimp3-with-plugins
+    darktable
+    imagemagick
 
     nixd
 
@@ -111,6 +113,7 @@
     (btop.override {
       cudaSupport = true; # Enable NVIDIA GPU support
     })
+    bluez
     pkgs.mesa-demos #GPU testing
     pciutils #lspci
 
@@ -150,9 +153,9 @@
       ];
     };
 
-    "org/gnome/desktop/a11y/applications" = {
-      screen-keyboard-enabled = true;
-    };
+    # "org/gnome/desktop/a11y/applications" = {
+    #   screen-keyboard-enabled = true;
+    # };
   };
 
   #SSH
