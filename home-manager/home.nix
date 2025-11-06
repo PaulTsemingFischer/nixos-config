@@ -65,6 +65,7 @@
     gimp3-with-plugins
     darktable
     imagemagick
+    pdftk
 
     nixd
 
@@ -144,9 +145,30 @@
       ];
     };
 
+    "org/gnome/desktop/wm/keybindings" = {
+      # Unbind the default Ctrl+Alt+Arrow workspace switching keys
+      switch-to-workspace-left = ["<Control><Super>Left"];
+      switch-to-workspace-right = ["<Control><Super>Right"];
+      switch-to-workspace-up = ["<Control><Super>Up"]; # if applicable
+      switch-to-workspace-down = ["<Control><Super>Down"]; # if applicable
+
+      # Set move window to workspace keys to Ctrl + Super + Shift + Arrow
+      move-to-workspace-left = ["<Control><Super><Shift>Left"];
+      move-to-workspace-right = ["<Control><Super><Shift>Right"];
+      move-to-workspace-up = ["<Control><Super><Shift>Up"]; # if applicable
+      move-to-workspace-down = ["<Control><Super><Shift>Down"]; # if applicable
+    };
+
     # "org/gnome/desktop/a11y/applications" = {
     #   screen-keyboard-enabled = true;
     # };
+  };
+
+  #direnv
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
   };
 
   #SSH
