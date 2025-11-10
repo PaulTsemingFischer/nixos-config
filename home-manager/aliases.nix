@@ -23,7 +23,7 @@
       eh = "code ~/Documents/nix-config/home-manager/home.nix";
       ea = "code ~/Documents/nix-config/home-manager/aliases.nix";
 
-      #nixos - Now dynamically determines hostname
+      # Format all nix files
       nfmt = "nix fmt ./";
 
       #system
@@ -45,7 +45,7 @@
       sshcy = "ssh -Y ptf34@ugclinux.cs.cornell.edu";
     };
 
-    initExtra = ''
+    initContent = ''
       # Function to get current hostname for flake configuration
       get_flake_host() {
         local hostname=$(hostname)
@@ -75,6 +75,11 @@
       # Git helper functions
       gac() { gaa && gcmsg "$1"; }
       gacp() { gaa && gcmsg "$1" && gp; }
+
+      # Silent cd
+      cds() {
+      cd "$@" > /dev/null 2>&1
+      }
     '';
   };
 }
