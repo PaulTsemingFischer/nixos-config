@@ -32,7 +32,7 @@ config.scrollback_lines = 10000
 config.enable_tab_bar = true
 config.use_fancy_tab_bar = true
 config.tab_bar_at_bottom = false
-config.hide_tab_bar_if_only_one_tab = true
+config.hide_tab_bar_if_only_one_tab = false
 
 -- Cursor
 config.default_cursor_style = 'SteadyBlock'
@@ -82,6 +82,85 @@ config.keys = {
   { key = 'R', mods = 'CTRL|SHIFT', action = wezterm.action.SendKey{ key = 't', mods = 'CTRL' } }, -- Fix word
 	{ key = 'Backspace', mods = "CTRL", action = wezterm.action.SendKey{ key = "w", mods = "CTRL" } }, -- Delete word backward
   { key = 'Delete', mods = 'CTRL', action = wezterm.action.SendKey{ key = 'd', mods = 'ALT' } }, -- Delete word forward
+  {
+    key = 'a',
+    mods = 'CTRL',
+    action = wezterm.action_callback(function(window, pane)
+        local dims = pane:get_dimensions()
+        local lines = {}
+        
+        for i = 0, dims.scrollback_rows - 1 do
+            local line = pane:get_text_from_region(
+                0,
+                dims.scrollback_top + i,
+                dims.cols - 1,
+                dims.scrollback_top + i
+            )
+            
+            if line and line ~= '' then
+                -- Trim trailing whitespace
+                line = line:match('^(.-)%s*$')
+                -- Remove ANSI color codes
+                line = line:gsub('\27%[[%d;]*[A-Za-z]', '')
+                
+                -- Check if this looks like a prompt line (contains pengl and ends with directory pattern)
+                local is_prompt = line:match('pengl') and line:match('[\u{E0B0}]')
+                
+                if is_prompt then
+                    -- For prompt lines, do aggressive filtering
+                    -- Remove everything before the last > (which we'll create)
+                    -- Find the last occurrence of arrow (U+E0B0)
+                    local last_pos = nil
+                    local pos = 1
+                    while true do
+                        local found = line:find('[\u{E0B0}]', pos)
+                        if not found then break end
+                        last_pos = found
+                        pos = found + 1
+                    end
+                    
+                    if last_pos then
+                        -- Replace the last arrow with > and remove everything before it except directory
+                        local after_arrow = line:sub(last_pos + 2) -- +2 to skip the UTF-8 bytes
+                        -- Try to extract just the directory part before the arrow
+                        local dir = line:match('/[^'..string.char(0xEE, 0x82, 0xB0)..']*') or ''
+                        line = dir .. '>' .. after_arrow
+                    end
+                    
+                    -- Remove "pengl ~ " prefix
+                    line = line:gsub('pengl%s*~%s*', '')
+                else
+                    -- For non-prompt lines (like ls output), only remove Nerd Font icons
+                    -- but preserve the text
+                    local result = {}
+                    for char in line:gmatch('[\u{0000}-\u{DFFF}\u{E000}-\u{F8FF}\u{10000}-\u{10FFFF}]') do
+                        if not char:match('[\u{E000}-\u{F8FF}]') then
+                            table.insert(result, char)
+                        end
+                    end
+                    line = table.concat(result)
+                end
+                
+                -- Final cleanup for all lines
+                line = line:gsub('%s+', ' ') -- Collapse multiple spaces
+                line = line:gsub('%s+>', '>') -- Remove space before >
+                line = line:match('^%s*(.-)%s*$') -- Trim
+                
+                if line and line ~= '' then
+                    table.insert(lines, line)
+                end
+            end
+        end
+        
+        local txt = table.concat(lines, '\n')
+        if txt and #txt > 0 then
+            window:copy_to_clipboard(txt)
+        else
+            window:toast_notification('WezTerm', 'Copy failed', nil, 1000)
+        end
+    end),
+},
+  
 
   
   -- Zoom
