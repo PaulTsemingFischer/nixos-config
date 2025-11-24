@@ -61,18 +61,23 @@
     google-chrome
     parsec-bin
     libinput #Lists keyboard ids
+    wget
+    nixd
+    zip
+    video-trimmer
+
+    #Media
     krita
     gimp3-with-plugins
     darktable
     imagemagick
     pdftk
 
-    nixd
-
     # Communication
     discord
     vesktop
     mattermost-desktop
+    slack
     zoom-us
     zapzap # (Whatsapp)
 
@@ -94,6 +99,15 @@
     ocamlPackages.dune_3
     gnumake
     z3
+
+    # Python
+    (pkgs.python3.withPackages (ps:
+      with ps; [
+        numpy
+        sentence-transformers
+        faiss
+        tqdm
+      ]))
 
     # Gaming
     prismlauncher
@@ -191,6 +205,10 @@
     enable = true;
     userName = "Paul Fischer";
     userEmail = "paultsemingfischer@gmail.com";
+
+    extraConfig = {
+      init.defaultBranch = "main";
+    };
   };
 
   fonts.fontconfig.enable = true;
