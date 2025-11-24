@@ -17,7 +17,7 @@
 
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
-    ./aliases.nix
+    ./scripts/aliases.nix
     ./pengl-zsh.nix
   ];
 
@@ -56,17 +56,16 @@
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
   home.packages = with pkgs; [
-    vencord
     spotify
     google-chrome
-    parsec-bin
+
     libinput #Lists keyboard ids
     wget
-    nixd
+
     zip
     video-trimmer
 
-    #Media
+    # Media editing
     krita
     gimp3-with-plugins
     darktable
@@ -75,6 +74,7 @@
 
     # Communication
     discord
+    vencord
     vesktop
     mattermost-desktop
     slack
@@ -85,6 +85,8 @@
     git
     gh
     vscode
+    jetbrains.idea-ultimate
+    nixd # Nix LSP
 
     # C/C++
     clang-tools
@@ -120,9 +122,10 @@
     (btop.override {
       cudaSupport = true; # Enable NVIDIA GPU support
     })
-    bluez
+    bluez # Bluetooth info
     pkgs.mesa-demos #GPU testing
     pciutils #lspci
+    parsec-bin
 
     tree
     wezterm

@@ -6,8 +6,9 @@
 }: {
   programs.zsh = {
     shellAliases = {
-      #OMZ
+      # Shell
       ls = "exa --icons";
+      rzsh = "source ~/.zshrc";
 
       #Jump
       jc = "cd ~/Documents/nix-config";
@@ -48,6 +49,9 @@
       #ssh
       sshc = "ssh ptf34@ugclinux.cs.cornell.edu";
       sshcy = "ssh -Y ptf34@ugclinux.cs.cornell.edu";
+
+      #local dev
+      ldev = "cp ${toString ./bareflake.nix} ./flake.nix && echo 'use flake .' > .envrc && direnv allow";
     };
 
     initContent = ''
