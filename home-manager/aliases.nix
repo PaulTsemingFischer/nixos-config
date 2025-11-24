@@ -16,6 +16,11 @@
       j4414 = "jd; cd cs4414";
       j3110 = "jd; cd cs3110";
       j4110 = "jd; cd cs4110";
+      jcuair = "cd ~/cuair";
+      jcgb = "jcuair; cd gs-backend";
+      jcgc = "jcuair; cd cs-backend";
+      jcfb = "jcuair; cd gs-frontend";
+      jcfc = "jcuair; cd cs-frontend";
 
       #Edit
       ec = "code ~/Documents/nix-config/nixos/configuration.nix";
@@ -79,6 +84,11 @@
       # Silent cd
       cds() {
       cd "$@" > /dev/null 2>&1
+      }
+
+      # Run in background silently
+      rbg() {
+        "$@" &>/dev/null &
       }
     '';
   };
