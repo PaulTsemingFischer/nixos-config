@@ -6,7 +6,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   # You can import other home-manager modules here
   imports = [
     # If you want to use modules your own flake exports (from modules/home-manager):
@@ -59,7 +60,7 @@
     spotify
     google-chrome
 
-    libinput #Lists keyboard ids
+    libinput # Lists keyboard ids
     wget
 
     zip
@@ -103,13 +104,7 @@
     z3
 
     # Python
-    (pkgs.python3.withPackages (ps:
-      with ps; [
-        numpy
-        sentence-transformers
-        faiss
-        tqdm
-      ]))
+    python3
 
     # Gaming
     prismlauncher
@@ -123,8 +118,8 @@
       cudaSupport = true; # Enable NVIDIA GPU support
     })
     bluez # Bluetooth info
-    pkgs.mesa-demos #GPU testing
-    pciutils #lspci
+    pkgs.mesa-demos # GPU testing
+    pciutils # lspci
     parsec-bin
 
     tree
@@ -142,11 +137,11 @@
     # libdbusmenu-gtk3
 
     #Gnome
-    gnome-tweaks #Used for disabling middle mouse paste on trackpads
+    gnome-tweaks # Used for disabling middle mouse paste on trackpads
     # gnomeExtensions.touch-x #OSK
-    gnomeExtensions.appindicator #Needed for Dropbox
+    gnomeExtensions.appindicator # Needed for Dropbox
     gnomeExtensions.color-picker
-    wmctrl #full screen stuff
+    wmctrl # full screen stuff
   ];
 
   # Enable home-manager and git
@@ -164,16 +159,16 @@
 
     "org/gnome/desktop/wm/keybindings" = {
       # Unbind the default Ctrl+Alt+Arrow workspace switching keys
-      switch-to-workspace-left = ["<Control><Super>Left"];
-      switch-to-workspace-right = ["<Control><Super>Right"];
-      switch-to-workspace-up = ["<Control><Super>Up"]; # if applicable
-      switch-to-workspace-down = ["<Control><Super>Down"]; # if applicable
+      switch-to-workspace-left = [ "<Control><Super>Left" ];
+      switch-to-workspace-right = [ "<Control><Super>Right" ];
+      switch-to-workspace-up = [ "<Control><Super>Up" ]; # if applicable
+      switch-to-workspace-down = [ "<Control><Super>Down" ]; # if applicable
 
       # Set move window to workspace keys to Ctrl + Super + Shift + Arrow
-      move-to-workspace-left = ["<Control><Super><Shift>Left"];
-      move-to-workspace-right = ["<Control><Super><Shift>Right"];
-      move-to-workspace-up = ["<Control><Super><Shift>Up"]; # if applicable
-      move-to-workspace-down = ["<Control><Super><Shift>Down"]; # if applicable
+      move-to-workspace-left = [ "<Control><Super><Shift>Left" ];
+      move-to-workspace-right = [ "<Control><Super><Shift>Right" ];
+      move-to-workspace-up = [ "<Control><Super><Shift>Up" ]; # if applicable
+      move-to-workspace-down = [ "<Control><Super><Shift>Down" ]; # if applicable
     };
 
     # "org/gnome/desktop/a11y/applications" = {
