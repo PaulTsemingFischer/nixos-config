@@ -72,6 +72,7 @@
     darktable
     imagemagick
     pdftk
+    jellyfin-ffmpeg
 
     # Communication
     discord
