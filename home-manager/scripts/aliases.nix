@@ -53,6 +53,9 @@
 
       #local dev
       ldev = "cp ${toString ./bareflake.nix} ./flake.nix && echo 'use flake .' > .envrc && direnv allow";
+
+      #apps
+      intellij = "idea-ultimate"
     };
 
     initContent = ''

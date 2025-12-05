@@ -59,12 +59,7 @@
   home.packages = with pkgs; [
     spotify
     google-chrome
-
-    libinput # Lists keyboard ids
-    wget
-
-    zip
-    video-trimmer
+    atac
 
     # Media editing
     krita
@@ -73,6 +68,7 @@
     imagemagick
     pdftk
     jellyfin-ffmpeg
+    video-trimmer
 
     # Communication
     discord
@@ -114,15 +110,21 @@
     heroic
     steam-run
 
-    # System
+    # Remote access
+    wget
+    parsec-bin
+
+    # Hardware
     (btop.override {
       cudaSupport = true; # Enable NVIDIA GPU support
     })
     bluez # Bluetooth info
     pkgs.mesa-demos # GPU testing
-    pciutils # lspci
-    parsec-bin
+    pciutils # (list PCI)
+    libinput # Lists keyboard ids
 
+    #Utilities/misc system
+    zip
     tree
     wezterm
     warp-terminal
