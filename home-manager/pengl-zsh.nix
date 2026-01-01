@@ -10,7 +10,9 @@
       enable = true;
       plugins = [
         "git"
-        "thefuck"
+        "colorize"
+        "colored-man-pages"
+        "command-not-found"
       ];
       theme = "agnoster";
     };
@@ -19,4 +21,6 @@
       eval $(opam env)
     '';
   };
+
+  programs.pay-respects.enable = true;
 }
