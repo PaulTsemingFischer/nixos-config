@@ -23,7 +23,6 @@
   ];
 
   nixpkgs = {
-    # You can add overlays here
     overlays = [
       # Add overlays your own flake exports (from overlays and pkgs dir):
       outputs.overlays.additions
@@ -40,10 +39,12 @@
       #   });
       # })
     ];
-    # Configure your nixpkgs instance
     config = {
-      # Disable if you don't want unfree packages
       allowUnfree = true;
+
+      permittedInsecurePackages = [
+        "ventoy-qt5-1.1.07"
+      ];
     };
   };
 
@@ -64,6 +65,7 @@
     pandoc
     libreoffice-qt
     gparted # disk partition changer
+    ventoy-full-qt # multi-iso disk
 
     # Media editing
     krita
@@ -110,7 +112,7 @@
     # Gaming
     prismlauncher
     lunar-client
-    protonup
+    protonup-ng
     heroic
     steam-run
 
@@ -135,7 +137,7 @@
     eza
     nerd-fonts.jetbrains-mono
     font-awesome
-    thefuck
+    pay-respects
     gdmap # disk space viewer
 
     # Dropbox
@@ -280,25 +282,33 @@
   #SSH
   programs.ssh = {
     enable = true;
-    extraConfig = ''
-      Host github.com
-        IdentityFile ~/.ssh/id_ed25519
-        IdentitiesOnly yes
+    enableDefaultConfig = false;
 
-      Host github.coecis.cornell.edu
-        IdentityFile ~/.ssh/id_ed25519
-        IdentitiesOnly yes
-    '';
+    matchBlocks."*" = {
+      identitiesOnly = true;
+    };
+
+    matchBlocks."github.com" = {
+      identityFile = "~/.ssh/id_ed25519";
+    };
+
+    matchBlocks."github.coecis.cornell.edu" = {
+      identityFile = "~/.ssh/id_ed25519";
+    };
   };
+
   services.ssh-agent.enable = true;
 
   #Git
   programs.git = {
     enable = true;
-    userName = "Paul Fischer";
-    userEmail = "paultsemingfischer@gmail.com";
 
-    extraConfig = {
+    settings = {
+      user = {
+        name = "Paul Fischer";
+        email = "paultsemingfischer@gmail.com";
+      };
+
       init.defaultBranch = "main";
     };
   };
@@ -319,5 +329,5 @@
   systemd.user.startServices = "sd-switch";
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  home.stateVersion = "25.05";
+  home.stateVersion = "25.11";
 }
