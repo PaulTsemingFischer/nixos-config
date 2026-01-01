@@ -148,6 +148,8 @@
     # alsamixer #speakers
   ];
 
+  virtualisation.docker.enable = true;
+
   users.users = {
     pengl = {
       # If you do, you can skip setting a root password by passing '--no-root-passwd' to nixos-install.
@@ -162,6 +164,7 @@
       extraGroups = [
         "wheel"
         "networkmanager"
+        "docker"
       ];
     };
   };
