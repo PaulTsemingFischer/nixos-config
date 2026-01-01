@@ -60,6 +60,10 @@
     spotify
     google-chrome
     atac
+    zenity # display for linux lenovo vantage
+    pandoc
+    libreoffice-qt
+    gparted # disk partition changer
 
     # Media editing
     krita
@@ -132,6 +136,7 @@
     nerd-fonts.jetbrains-mono
     font-awesome
     thefuck
+    gdmap # disk space viewer
 
     # Dropbox
     maestral
