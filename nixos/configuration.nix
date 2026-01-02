@@ -73,8 +73,34 @@
       '';
     };
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  # Systemd boot
+  # boot.loader.systemd-boot.enable = true;
+  # boot.loader.efi.canTouchEfiVariables = true;
+
+  # Grub boot
+  boot.loader = {
+    efi = {
+      canTouchEfiVariables = true;
+    };
+
+    grub = {
+      enable = true;
+      efiSupport = true;
+      device = "nodev";
+      useOSProber = true;
+
+      extraEntries = ''
+        menuentry "UEFI Firmware Settings" {
+          fwsetup
+        }
+
+        menuentry "Ventoy USB" {
+          search --no-floppy --set=root --file /ventoy/ventoy.cpio
+          chainloader /EFI/BOOT/BOOTX64.EFI
+        }
+      '';
+    };
+  };
 
   # Enable networking
   networking.networkmanager.enable = true;

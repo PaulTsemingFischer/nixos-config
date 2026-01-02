@@ -66,6 +66,7 @@
     libreoffice-qt
     gparted # disk partition changer
     ventoy-full-qt # multi-iso disk
+    nixos-generators # build nix iso from current config
 
     # Media editing
     krita
