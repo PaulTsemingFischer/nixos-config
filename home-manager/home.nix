@@ -67,6 +67,10 @@
     gparted # disk partition changer
     ventoy-full-qt # multi-iso disk
     nixos-generators # build nix iso from current config
+    nix-search-cli # search nix packages
+    qbittorrent-enhanced
+    parabolic
+    nodejs
 
     # Media editing
     krita
