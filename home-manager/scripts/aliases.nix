@@ -56,6 +56,7 @@
 
       #apps
       intellij = "idea-ultimate";
+      parabolic = "org.nickvision.tubeconverter";
     };
 
     initContent = ''
