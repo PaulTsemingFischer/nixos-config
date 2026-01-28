@@ -70,7 +70,7 @@
     nix-search-cli # search nix packages
     qbittorrent-enhanced
     parabolic
-    nodejs
+    anki
 
     # Media editing
     krita
@@ -110,6 +110,15 @@
     ocamlPackages.dune_3
     gnumake
     z3
+
+    # Rocq
+
+    # coq_9_1
+    # coqPackages_9_1.vscoq-language-server
+    rocq-core
+    rocqPackages.vsrocq-language-server
+    vscode-extensions.rocq-prover.vsrocq
+    rocqPackages.stdlib
 
     # Python
     python3
@@ -315,6 +324,10 @@
       };
 
       init.defaultBranch = "main";
+
+      core = {
+        fsmonitor = true;
+      };
     };
   };
 

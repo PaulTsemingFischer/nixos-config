@@ -19,6 +19,7 @@
     initContent = ''
       ${builtins.readFile ./powerline-prompt.sh}
       eval $(opam env)
+      export PATH="$HOME/.npm-global/bin:$PATH"
     '';
   };
 

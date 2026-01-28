@@ -93,11 +93,6 @@
         menuentry "UEFI Firmware Settings" {
           fwsetup
         }
-
-        menuentry "Ventoy USB" {
-          search --no-floppy --set=root --file /ventoy/ventoy.cpio
-          chainloader /EFI/BOOT/BOOTX64.EFI
-        }
       '';
     };
   };
@@ -222,6 +217,15 @@
       };
     };
   };
+
+  # Actual budget
+  # services.actual = {
+  #   enable = true;
+  #   settings = {
+  #     port = 5006;
+  #     hostname = "0.0.0.0";
+  #   };
+  # };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "25.11";

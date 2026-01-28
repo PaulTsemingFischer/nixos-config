@@ -97,7 +97,7 @@
 
       # Run in background silently
       rbg() {
-        "$@" &>/dev/null &
+        eval "$*" &> /dev/null &
       }
     '';
   };
