@@ -151,8 +151,8 @@
     eza
     nerd-fonts.jetbrains-mono
     font-awesome
-    pay-respects
-    gdmap # disk space viewer
+    pay-respect
+    qdirstat # disk space viewer
 
     # Dropbox
     maestral
