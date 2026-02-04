@@ -71,6 +71,7 @@
     qbittorrent-enhanced
     parabolic
     anki
+    jflex
 
     # Media editing
     krita
@@ -151,7 +152,7 @@
     eza
     nerd-fonts.jetbrains-mono
     font-awesome
-    pay-respect
+    pay-respects
     qdirstat # disk space viewer
 
     # Dropbox
@@ -309,6 +310,10 @@
     matchBlocks."github.coecis.cornell.edu" = {
       identityFile = "~/.ssh/id_ed25519";
     };
+
+    extraConfig = ''
+      Include ~/.ssh/config.local
+    '';
   };
 
   services.ssh-agent.enable = true;
@@ -322,6 +327,8 @@
         name = "Paul Fischer";
         email = "paultsemingfischer@gmail.com";
       };
+
+      pull.rebase = false;
 
       init.defaultBranch = "main";
 
