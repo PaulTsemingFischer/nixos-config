@@ -83,12 +83,13 @@
       canTouchEfiVariables = true;
     };
 
+    timeout = 30; # time until autoload first profile
+
     grub = {
       enable = true;
       efiSupport = true;
       device = "nodev";
       useOSProber = true;
-
       extraEntries = ''
         menuentry "UEFI Firmware Settings" {
           fwsetup

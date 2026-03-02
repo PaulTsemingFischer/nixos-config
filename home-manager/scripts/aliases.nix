@@ -95,9 +95,17 @@
       cd "$@" > /dev/null 2>&1
       }
 
+      # Loud cd
+      cde() {
+        if builtin cd "$@"; then
+          ls
+        fi
+      }
+
+
       # Run in background silently
       rbg() {
-        eval "$*" &> /dev/null &
+        eval "$*" &> /dev/null & 
       }
     '';
   };

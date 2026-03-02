@@ -59,6 +59,7 @@
   # programs.neovim.enable = true;
   home.packages = with pkgs; [
     spotify
+    spotdl
     google-chrome
     atac
     zenity # display for linux lenovo vantage
@@ -69,9 +70,11 @@
     nixos-generators # build nix iso from current config
     nix-search-cli # search nix packages
     qbittorrent-enhanced
-    parabolic
-    anki
-    jflex
+    parabolic # video downloader
+    anki # flashcards
+    jflex # lexer generator
+    diffutils # diff command
+    audacity # audio editing
 
     # Media editing
     krita
@@ -94,7 +97,7 @@
     # Coding
     git
     gh
-    vscode
+    unstable.vscode
     jetbrains.idea-ultimate
     nixd # Nix LSP
 
@@ -334,6 +337,10 @@
 
       core = {
         fsmonitor = true;
+      };
+
+      push = {
+        autoSetupRemote = true;
       };
     };
   };
