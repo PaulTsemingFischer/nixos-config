@@ -10,6 +10,7 @@
       # Shell
       ls = "exa --icons";
       rzsh = "source ~/.zshrc";
+      count = "find . -type f | wc -l";
 
       #Jump
       jc = "cd ~/Documents/nix-config";
@@ -52,7 +53,7 @@
       sshcy = "ssh -Y ptf34@ugclinux.cs.cornell.edu";
 
       #local dev
-      ldev = "cp ${toString ./bareflake.nix} ./flake.nix && echo 'use flake .' > .envrc && direnv allow";
+      ldev = "cp ${toString ./bareflake.nix} ./flake.nix && echo 'use flake .' > .envrc && git add . && direnv allow";
 
       #apps
       intellij = "idea-ultimate";
@@ -102,10 +103,20 @@
         fi
       }
 
-
       # Run in background silently
       rbg() {
         eval "$*" &> /dev/null & 
+      }
+
+      # Find a file
+      ffind() {
+          [[ -z "$1" ]] && { echo "Usage: ffind <partial-filename> [dir]" >&2; return 2; }
+          local file="$1"
+          local dir="''${2:-.}"
+          local match
+          match=$(find "$dir" -type f -iname "*$file*" -print -quit 2>/dev/null)
+          [[ -z "$match" ]] && { echo "No match" >&2; return 1; }
+          printf '%s\n' "$match"
       }
     '';
   };
