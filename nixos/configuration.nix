@@ -79,8 +79,15 @@
       enable = true;
       efiSupport = true;
       device = "nodev";
-      useOSProber = true;
+      useOSProber = false;
       extraEntries = ''
+        menuentry "Windows" {
+          insmod part_gpt
+          insmod fat
+          insmod chain
+          search --no-floppy --fs-uuid --set=root 2CC2-1CB5
+          chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+        }
         menuentry "UEFI Firmware Settings" {
           fwsetup
         }
