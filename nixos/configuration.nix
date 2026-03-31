@@ -140,6 +140,7 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    jack.enable = true;
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
 
@@ -168,7 +169,18 @@
     # alsamixer #speakers
   ];
 
+  # Virtualization
+
   virtualisation.docker.enable = true;
+
+  # Enable VirtualBox host (installs GUI + kernel modules)
+  virtualisation.virtualbox.host.enable = true;
+
+  # Optional: Oracle Extension Pack (USB2/3 etc.)
+  virtualisation.virtualbox.host.enableExtensionPack = true;
+
+  # Let your user use VirtualBox
+  users.extraGroups.vboxusers.members = [ "pengl" ];
 
   users.users = {
     pengl = {
@@ -199,6 +211,11 @@
       PasswordAuthentication = false;
     };
   };
+
+  # Firewalls
+
+  networking.firewall.enable = true;
+  networking.firewall.allowedTCPPorts = [ 9000 ];
 
   #Needed for windsurf
   programs.nix-ld.enable = true;
