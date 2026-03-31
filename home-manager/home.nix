@@ -80,6 +80,8 @@
     # Media consumption
     spotify
     spotdl
+    kdePackages.dolphin # file manager
+    kdePackages.qtsvg # (for dolphin previews)
 
     # Communication
     discord
@@ -158,6 +160,7 @@
     font-awesome
     pay-respects
     qdirstat # disk space viewer
+    trashy # command line trash
     undollar # Removes dollar signs when pasted
     neofetch # system info in terminal
 
