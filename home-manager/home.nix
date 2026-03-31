@@ -8,12 +8,11 @@
   ...
 }:
 {
-  # You can import other home-manager modules here
   imports = [
-    ./scripts/aliases.nix
-    ./pengl-zsh.nix
-    ./desktop/default.nix # add this
-    ./desktop/mime.nix # add this
+    ./terminal/aliases.nix
+    ./terminal/pengl-zsh.nix
+    ./desktop/default.nix
+    ./desktop/mime.nix
   ];
 
   nixpkgs = {
@@ -52,15 +51,13 @@
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
   home.packages = with pkgs; [
-    spotify
-    spotdl
     google-chrome
     atac
     zenity # display for linux lenovo vantage
     pandoc
     libreoffice-qt
     gparted # disk partition changer
-    ventoy-full-qt # multi-iso disk
+    ventoy-full-qt # multi-iso disk creator
     nixos-generators # build nix iso from current config
     nix-search-cli # search nix packages
     qbittorrent-enhanced
@@ -70,7 +67,6 @@
     diffutils # diff command
     audacity # audio editing
     qemu # vms
-    neofetch
 
     # Media editing
     krita
@@ -80,6 +76,10 @@
     pdftk
     jellyfin-ffmpeg
     video-trimmer
+
+    # Media consumption
+    spotify
+    spotdl
 
     # Communication
     discord
@@ -116,10 +116,6 @@
     gtk3
 
     # Rocq
-
-    # coq_9_1
-    # coqPackages_9_1.vscoq-language-server
-
     rocq-core
     rocqPackages.vsrocq-language-server
     vscode-extensions.rocq-prover.vsrocq
@@ -163,6 +159,7 @@
     pay-respects
     qdirstat # disk space viewer
     undollar # Removes dollar signs when pasted
+    neofetch # system info in terminal
 
     # Dropbox
     maestral
