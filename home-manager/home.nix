@@ -75,6 +75,8 @@
     jflex # lexer generator
     diffutils # diff command
     audacity # audio editing
+    qemu # vms
+    neofetch
 
     # Media editing
     krita
@@ -99,6 +101,7 @@
     gh
     unstable.vscode
     jetbrains.idea-ultimate
+    jetbrains-toolbox
     nixd # Nix LSP
 
     # C/C++
@@ -114,11 +117,15 @@
     ocamlPackages.dune_3
     gnumake
     z3
+    pkg-config
+    cairo
+    gtk3
 
     # Rocq
 
     # coq_9_1
     # coqPackages_9_1.vscoq-language-server
+
     rocq-core
     rocqPackages.vsrocq-language-server
     vscode-extensions.rocq-prover.vsrocq
@@ -126,6 +133,10 @@
 
     # Python
     python3
+    python313Packages.pillow
+
+    # Node
+    nodejs_24
 
     # Gaming
     prismlauncher
@@ -157,6 +168,7 @@
     font-awesome
     pay-respects
     qdirstat # disk space viewer
+    undollar # Removes dollar signs when pasted
 
     # Dropbox
     maestral
