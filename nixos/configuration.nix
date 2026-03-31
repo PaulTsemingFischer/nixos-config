@@ -204,11 +204,22 @@
 
   services.keyd.keyboards = {
     bluetooth = {
-      ids = [ "04e8:7021" ]; # Samsers keyboard
+      ids = [ "*" ]; # Samsers keyboard
       settings = {
         main = {
-          leftmeta = "leftalt";
-          leftalt = "leftmeta";
+          capslock = "end";
+        };
+        shift = {
+          capslock = "home";
+        };
+        alt = {
+          capslock = "pageup";
+        };
+        "alt+shift" = {
+          capslock = "pagedown";
+        };
+        control = {
+          capslock = "capslock";
         };
       };
     };
