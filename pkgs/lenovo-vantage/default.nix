@@ -1,3 +1,6 @@
+# pkgs/lenovo-vantage/default.nix
+# MAKE SURE TO RUN WITH SUDO
+
 {
   lib,
   stdenv,
@@ -15,11 +18,12 @@ stdenv.mkDerivation rec {
   pname = "lenovo-vantage-linux";
   version = "unstable-2024-01-03";
 
+  # https://github.com/niizam/vantage
   src = fetchFromGitHub {
     owner = "niizam";
     repo = "vantage";
     rev = "641ca63dc5f133ee884d358ad6d253fa70f69988";
-    sha256 = "sha256-1gpcixyfr351b4i0978kpyjgis60vbrzvh1rlpivyk1qspk477hy";
+    sha256 = "sha256-Hp5D5tU4TL/jpTnA/fPawOj4pL8TnQQiWaGM7HyP7L4=";
   };
 
   nativeBuildInputs = [ makeWrapper ];

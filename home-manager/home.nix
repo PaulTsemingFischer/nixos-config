@@ -53,7 +53,6 @@
   home.packages = with pkgs; [
     google-chrome
     atac
-    zenity # display for linux lenovo vantage
     pandoc
     libreoffice-qt
     gparted # disk partition changer
@@ -67,6 +66,7 @@
     diffutils # diff command
     audacity # audio editing
     qemu # vms
+    lenovo-vantage
 
     # Media editing
     krita
