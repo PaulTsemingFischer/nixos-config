@@ -79,6 +79,7 @@
       enable = true;
       efiSupport = true;
       device = "nodev";
+      #      theme = "/home/pengl/Documents/nix-config/themes/grub/CelesteGRUB1440p";
       useOSProber = false;
       extraEntries = ''
         menuentry "Windows" {
