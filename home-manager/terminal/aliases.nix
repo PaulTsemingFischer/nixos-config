@@ -39,6 +39,7 @@
       bye = "shutdown -r now";
       hg = "history | grep $1";
       fixaudio = "amixer -c 0 cset numid=3 on";
+      redisplay = "sudo systemctl restart display-manager";
 
       #git
       gl = "git log --oneline";
