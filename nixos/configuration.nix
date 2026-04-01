@@ -153,7 +153,7 @@
     mangohud
     nvtopPackages.full
     keyd
-    # alsamixer #speakers
+    # Audio tools moved to yoga-pro-9i-audio.nix module
   ];
 
   # Virtualization

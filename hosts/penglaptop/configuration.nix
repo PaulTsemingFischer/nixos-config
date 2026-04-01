@@ -9,6 +9,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ../../modules/hardware/yoga-pro-9i-audio.nix
   ];
 
   networking.hostName = "penglaptop";
