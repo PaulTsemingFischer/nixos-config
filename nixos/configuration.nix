@@ -119,6 +119,19 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  # Allow passwordless sudo for nixos-rebuild
+  security.sudo.extraRules = [
+    {
+      users = [ "pengl" ];
+      commands = [
+        {
+          command = "/run/current-system/sw/bin/nixos-rebuild";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
+
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
