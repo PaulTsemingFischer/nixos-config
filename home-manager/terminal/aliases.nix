@@ -38,6 +38,7 @@
       hibernate = "sudo systemctl hibernate";
       bye = "shutdown -r now";
       hg = "history | grep $1";
+      fixaudio = "amixer -c 0 cset numid=3 on";
 
       #git
       gl = "git log --oneline";

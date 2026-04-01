@@ -1,4 +1,6 @@
+# https://github.com/maximmaxim345/yoga_pro_9i_gen9_linux
 { config, pkgs, ... }:
+
 let
   speaker-script = pkgs.writeShellScript "2pa-byps" ''
     export TERM=linux
@@ -103,23 +105,50 @@ in
 
   boot.kernelModules = [ "i2c-dev" ];
 
+  # Enable firmware
+  hardware.enableRedistributableFirmware = true;
+
   systemd.services.turn-on-speakers = {
     description = "Turn on speakers using i2c configuration";
+    after = [
+      "sound.target"
+      "alsa-restore.service"
+      "pipewire.service"
+    ];
+    requires = [ "sound.target" ];
+    wantedBy = [
+      "multi-user.target"
+    ];
+
+    serviceConfig = {
+      User = "root";
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStartPre = [
+        "${pkgs.coreutils}/bin/sleep 3"
+        "${pkgs.bash}/bin/bash -c '${pkgs.alsa-utils}/bin/amixer -c 0 sset Master mute || true'"
+      ];
+      ExecStart = speaker-script;
+      ExecStartPost = "${pkgs.bash}/bin/bash -c 'for i in $(seq 1 10); do ${pkgs.alsa-utils}/bin/amixer -c 0 cset numid=3 on && break || sleep 1; done'";
+    };
+  };
+
+  # Also run after suspend/resume
+  systemd.services.turn-on-speakers-resume = {
+    description = "Turn on speakers after resume";
     after = [
       "suspend.target"
       "hibernate.target"
       "hybrid-sleep.target"
       "suspend-then-hibernate.target"
     ];
+    wantedBy = [ "sleep.target" ];
 
     serviceConfig = {
       User = "root";
       Type = "oneshot";
-      ExecStart = "${pkgs.bash}/bin/bash -c \"${speaker-script} | ${pkgs.util-linux}/bin/logger\"";
+      ExecStart = speaker-script;
+      ExecStartPost = "${pkgs.bash}/bin/bash -c 'for i in $(seq 1 10); do ${pkgs.alsa-utils}/bin/amixer -c 0 cset numid=3 on && break || sleep 1; done'";
     };
-    wantedBy = [
-      "multi-user.target"
-      "sleep.target"
-    ];
   };
 }
