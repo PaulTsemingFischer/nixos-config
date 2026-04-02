@@ -40,6 +40,8 @@
       hg = "history | grep $1";
       fixaudio = "amixer -c 0 cset numid=3 on";
       redisplay = "sudo systemctl restart display-manager";
+      reloadniri = "niri msg action load-config-file";
+      syncniri = "(cd home-manager/desktop/niri && python ./sync-from-gui.py)";
 
       #git
       gl = "git log --oneline";

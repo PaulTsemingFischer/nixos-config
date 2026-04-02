@@ -12,7 +12,6 @@
     ./terminal/aliases.nix
     ./terminal/pengl-zsh.nix
     ./desktop/default.nix
-    ./desktop/mime.nix
     # ./desktop/easyeffects.nix
   ];
 
