@@ -14,7 +14,7 @@
   config = lib.mkIf (inputs ? noctalia) {
     # Disable waybar since we're using noctalia
     programs.waybar.enable = lib.mkForce false;
-    
+
     # Install noctalia package
     home.packages = [ inputs.noctalia.packages.${pkgs.system}.default ];
 
@@ -359,7 +359,10 @@
           iRadiusRatio = 1;
           keybinds = {
             keyDown = [ "Down" ];
-            keyEnter = [ "Return" "Enter" ];
+            keyEnter = [
+              "Return"
+              "Enter"
+            ];
             keyEscape = [ "Esc" ];
             keyLeft = [ "Left" ];
             keyRemove = [ "Del" ];
@@ -487,7 +490,11 @@
           autoHideMs = 2000;
           backgroundOpacity = 1;
           enabled = true;
-          enabledTypes = [ 0 1 2 ];
+          enabledTypes = [
+            0
+            1
+            2
+          ];
           "location" = "top_right";
           monitors = [ ];
           overlayLayer = true;
@@ -633,7 +640,14 @@
           sortOrder = "name";
           transitionDuration = 1500;
           transitionEdgeSmoothness = 0.05;
-          transitionType = [ "fade" "disc" "stripes" "wipe" "pixelate" "honeycomb" ];
+          transitionType = [
+            "fade"
+            "disc"
+            "stripes"
+            "wipe"
+            "pixelate"
+            "honeycomb"
+          ];
           useOriginalImages = false;
           useSolidColor = false;
           useWallhaven = false;

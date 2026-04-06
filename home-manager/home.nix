@@ -94,6 +94,7 @@
 
     # Coding
     git
+    diff-so-fancy # better git diffs in terminal
     gh
     unstable.vscode
     jetbrains.idea-ultimate
@@ -216,15 +217,43 @@
       };
 
       pull.rebase = false;
-
       init.defaultBranch = "main";
 
       core = {
         fsmonitor = true;
+        pager = "diff-so-fancy | less --tabs=4 -RF"; # Add this
       };
 
       push = {
         autoSetupRemote = true;
+      };
+
+      # Add this block
+      interactive = {
+        diffFilter = "diff-so-fancy --patch";
+      };
+
+      # Optional: recommended color settings for diff-so-fancy
+      color = {
+        diff = "always";
+        ui = "always";
+      };
+
+      "color \"diff\"" = {
+        meta = "11";
+        frag = "magenta bold";
+        func = "146 bold";
+        commit = "yellow bold";
+        old = "red bold";
+        new = "green bold";
+        whitespace = "red reverse";
+      };
+
+      "color \"diff-highlight\"" = {
+        oldNormal = "red bold";
+        oldHighlight = "red bold 52";
+        newNormal = "green bold";
+        newHighlight = "green bold 22";
       };
     };
   };
