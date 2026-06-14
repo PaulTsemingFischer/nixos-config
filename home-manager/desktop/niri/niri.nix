@@ -28,7 +28,7 @@ in
     wl-clipboard
     swappy # screenshot editor
     xdg-desktop-portal-gnome
-    fuzzel # app launcher fallback
+    ulauncher # app launcher fallback
   ];
 
   # Generate Niri config.kdl
