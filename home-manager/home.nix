@@ -36,7 +36,7 @@
       allowUnfree = true;
 
       permittedInsecurePackages = [
-        "ventoy-qt5-1.1.07"
+        "ventoy-qt5-1.1.12"
       ];
     };
   };
@@ -56,17 +56,19 @@
     pandoc
     libreoffice-qt
     gparted # disk partition changer
-    ventoy-full-qt # multi-iso disk creator
+    # ventoy-full-qt # multi-iso disk creator
     nixos-generators # build nix iso from current config
     nix-search-cli # search nix packages
     qbittorrent-enhanced
     parabolic # video downloader
     anki # flashcards
-    jflex # lexer generator
     diffutils # diff command
     audacity # audio editing
     qemu # vms
     lenovo-vantage
+    clipboard-jh
+    graphviz
+    skim # file fuzzy finder
 
     # Media editing
     krita
@@ -94,10 +96,12 @@
 
     # Coding
     git
+    sublime-merge # git gui
     diff-so-fancy # better git diffs in terminal
     gh
     unstable.vscode
-    jetbrains.idea-ultimate
+    micro # cli text editor
+    jetbrains.idea
     jetbrains-toolbox
     nixd # Nix LSP
 
@@ -141,6 +145,7 @@
     # Remote access
     wget
     parsec-bin
+    rustdesk-flutter
 
     # Hardware
     (btop.override {
@@ -163,13 +168,16 @@
     qdirstat # disk space viewer
     trashy # command line trash
     undollar # Removes dollar signs when pasted
-    neofetch # system info in terminal
+    hyfetch # system info in terminal
 
     # Dropbox
     maestral
     maestral-gui
     # libappindicator-gtk3
     # libdbusmenu-gtk3
+
+    # Goldman Sachs
+    # citrix_workspace
   ];
 
   # Enable home-manager and git
@@ -187,15 +195,15 @@
     enable = true;
     enableDefaultConfig = false;
 
-    matchBlocks."*" = {
+    settings."*" = {
       identitiesOnly = true;
     };
 
-    matchBlocks."github.com" = {
+    settings."github.com" = {
       identityFile = "~/.ssh/id_ed25519";
     };
 
-    matchBlocks."github.coecis.cornell.edu" = {
+    settings."github.coecis.cornell.edu" = {
       identityFile = "~/.ssh/id_ed25519";
     };
 

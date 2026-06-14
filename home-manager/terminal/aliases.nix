@@ -57,10 +57,9 @@
       sshcy = "ssh -Y ptf34@ugclinux.cs.cornell.edu";
 
       #local dev
-      ldev = "cp ${toString ./bareflake.nix} ./flake.nix && echo 'use flake .' > .envrc && git add . && direnv allow";
+      ldev = "cp ${toString ./bareflake.nix} ./flake.nix && echo 'source_up\nuse flake' > .envrc && git add . && direnv allow";
 
       #apps
-      intellij = "idea-ultimate";
       parabolic = "org.nickvision.tubeconverter";
     };
 

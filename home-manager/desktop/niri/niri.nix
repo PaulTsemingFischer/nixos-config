@@ -22,7 +22,7 @@ in
     niri
     udiskie
     xwayland-satellite
-    swww # wallpaper daemon
+    awww # wallpaper daemon
     grim # screenshot
     slurp # region select
     wl-clipboard
