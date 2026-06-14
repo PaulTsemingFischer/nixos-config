@@ -159,8 +159,8 @@
     #Utilities/misc system
     zip
     tree
-    wezterm
     warp-terminal
+    wezterm # Terminal
     eza
     nerd-fonts.jetbrains-mono
     font-awesome
@@ -271,6 +271,11 @@
   programs.eza = {
     enable = true;
     icons = "auto";
+  };
+
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
   };
 
   #Proton
