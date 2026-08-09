@@ -26,6 +26,8 @@
 
       permittedInsecurePackages = [
         "ventoy-qt5-1.1.12"
+        "libsoup-2.74.3"
+        "pnpm-10.29.2"
       ];
     };
   };
@@ -71,8 +73,8 @@
     # Media consumption
     spotify
     spotdl
-    kdePackages.dolphin # file manager
-    kdePackages.qtsvg # (for dolphin previews)
+    # kdePackages.dolphin # file manager
+    # kdePackages.qtsvg # (for dolphin previews)
 
     # Communication
     discord
@@ -273,6 +275,16 @@
   #Proton
   home.sessionVariables = {
     STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
+  };
+
+  # Nix garbage collection
+  programs.nh = {
+    enable = true;
+
+    clean = {
+      enable = true;
+      extraArgs = "--keep 5";
+    };
   };
 
   # Nicely reload system units when changing configs
