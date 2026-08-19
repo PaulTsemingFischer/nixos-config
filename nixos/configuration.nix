@@ -248,6 +248,11 @@
     };
   };
 
+  services.ollama = {
+    enable = true;
+    acceleration = "cuda";
+  };
+
   # Actual budget
   # services.actual = {
   #   enable = true;

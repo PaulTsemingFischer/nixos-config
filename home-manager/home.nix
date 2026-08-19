@@ -60,6 +60,9 @@
     clipboard-jh
     graphviz
     skim # file fuzzy finder
+    ollama
+    todoist
+    opencode
 
     # Media editing
     krita
@@ -123,6 +126,7 @@
     # Python
     python3
     python313Packages.pillow
+    pipx
 
     # Node
     nodejs_24
@@ -144,7 +148,7 @@
       cudaSupport = true; # Enable NVIDIA GPU support
     })
     bluez # Bluetooth info
-    pkgs.mesa-demos # GPU testing
+    (lib.lowPrio pkgs.mesa-demos) # GPU testing
     pciutils # (list PCI)
     libinput # Lists keyboard ids
 
@@ -276,6 +280,8 @@
   home.sessionVariables = {
     STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
   };
+
+  home.sessionPath = [ "$HOME/.local/bin" ];
 
   # Nix garbage collection
   programs.nh = {
