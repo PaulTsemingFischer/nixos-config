@@ -63,6 +63,8 @@
     ollama
     todoist
     opencode
+    claude-code
+    claude-monitor
 
     # Media editing
     krita
@@ -170,6 +172,8 @@
     # Dropbox
     maestral
     maestral-gui
+    seafile-client
+    # gsettings-desktop-schemas # (for seafile)
     # libappindicator-gtk3
     # libdbusmenu-gtk3
 

@@ -151,6 +151,13 @@
     #media-session.enable = true;
   };
 
+  # The merged /run/opengl-driver bundle (mesa + nvidia-x11) has been missing
+  # the vendor-neutral libglvnd EGL dispatcher, breaking any app that inits
+  # OpenGL via EGL (e.g. wezterm's default front_end) with "libEGL.so.1: cannot
+  # open shared object file" even though the vendor libEGL_mesa/libEGL_nvidia
+  # libs are present. Force it into the bundle explicitly.
+  hardware.graphics.extraPackages = [ pkgs.libglvnd ];
+
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
@@ -250,7 +257,7 @@
 
   services.ollama = {
     enable = true;
-    acceleration = "cuda";
+    package = pkgs.ollama-cuda;
   };
 
   # Actual budget
