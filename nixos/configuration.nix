@@ -100,7 +100,7 @@
   networking.networkmanager.enable = true;
 
   # Set your time zone.
-  time.timeZone = "America/Chicago";
+  time.timeZone = "America/New_York";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -258,6 +258,28 @@
   services.ollama = {
     enable = true;
     package = pkgs.ollama-cuda;
+
+    # Declaratively pull the models opencode is configured to use
+    # (home-manager/opencode.nix) so a fresh rebuild reproduces the whole
+    # local-model setup with no manual `ollama pull` steps. Selected from a
+    # 10-model benchmark (~/opencode-benchmark/RESULTS.md, 2026-08-20) --
+    # see home-manager/opencode.nix for per-model strengths/weaknesses.
+    # devstral:24b and command-r7b:7b were also benchmarked but didn't make
+    # the cut (devstral too slow on this GPU's 8GB VRAM, command-r7b weak on
+    # both tool-calling and chat quality) -- syncModels below removes them.
+    loadModels = [
+      "gpt-oss:20b"
+      "llama3.1:8b"
+      "qwen3:8b"
+      "mistral-nemo:12b"
+      "qwen2.5-coder:7b"
+      "qwen3-coder:30b"
+      "phi4:14b"
+      "deepseek-r1:8b"
+    ];
+    # Remove any models installed outside of loadModels so the machine
+    # state always matches what's declared here.
+    syncModels = true;
   };
 
   # Actual budget

@@ -13,6 +13,7 @@
     ./terminal/pengl-zsh.nix
     # ./launcher/ulauncher.nix
     ./desktop/default.nix
+    ./opencode.nix
   ];
 
   nixpkgs = {
