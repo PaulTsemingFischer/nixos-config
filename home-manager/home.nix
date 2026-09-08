@@ -14,6 +14,7 @@
     # ./launcher/ulauncher.nix
     ./desktop/default.nix
     ./opencode.nix
+    ./pengltab-dashboard.nix
   ];
 
   nixpkgs = {
@@ -21,6 +22,7 @@
       outputs.overlays.additions
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
+      inputs.claude-desktop.overlays.default
     ];
     config = {
       allowUnfree = true;
@@ -66,6 +68,7 @@
     opencode
     claude-code
     claude-monitor
+    claude-desktop
 
     # Media editing
     krita

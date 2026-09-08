@@ -224,6 +224,19 @@
 
   networking.firewall.enable = true;
   networking.firewall.allowedTCPPorts = [ 9000 ];
+  # Ollama listens on 0.0.0.0 (see services.ollama.host) so the
+  # pengltab-dashboard sync-backend Docker containers can reach it, but the
+  # default-deny firewall still drops that traffic. Scoping this by interface
+  # name (e.g. "docker0") doesn't hold up: `docker compose` gives each
+  # project's network its own hash-named bridge (br-<hash>) that changes if
+  # the network is ever recreated. Scope by source IP range instead --
+  # 172.16.0.0/12 is Docker's whole default address-pool space, so this
+  # covers any compose network without needing to track interface names.
+  # LAN and Tailscale peers are outside this range, so they still can't reach
+  # port 11434.
+  networking.firewall.extraCommands = ''
+    iptables -A nixos-fw -p tcp -s 172.16.0.0/12 --dport 11434 -j nixos-fw-accept
+  '';
 
   #Needed for windsurf
   programs.nix-ld.enable = true;
@@ -259,6 +272,14 @@
     enable = true;
     package = pkgs.ollama-cuda;
 
+    # Default (127.0.0.1) means only processes on this host's loopback can
+    # reach it -- a Docker container is a different network namespace, so it
+    # can't, even via host.docker.internal. Binding all interfaces lets the
+    # pengltab-dashboard sync-backend containers reach it; the host firewall
+    # (networking.firewall.allowedTCPPorts, port 11434 not in it) still blocks
+    # this from actual external hosts on the LAN/Tailscale.
+    host = "0.0.0.0";
+
     # Declaratively pull the models opencode is configured to use
     # (home-manager/opencode.nix) so a fresh rebuild reproduces the whole
     # local-model setup with no manual `ollama pull` steps. Selected from a
@@ -276,11 +297,14 @@
       "qwen3-coder:30b"
       "phi4:14b"
       "deepseek-r1:8b"
+      "qwen2.5vl:7b" # vision model, for screenshot -> task extraction
     ];
     # Remove any models installed outside of loadModels so the machine
     # state always matches what's declared here.
     syncModels = true;
   };
+
+  systemd.services.ollama.serviceConfig.DeviceAllow = [ "char-nvidia" ];
 
   # Actual budget
   # services.actual = {

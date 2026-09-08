@@ -19,6 +19,10 @@
 
     # Noctalia Shell
     noctalia.url = "github:noctalia-dev/noctalia-shell";
+
+    # Claude desktop app
+    claude-desktop.url = "github:nmcbride/claude-desktop-nix";
+    claude-desktop.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
