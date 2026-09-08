@@ -13,6 +13,18 @@
 
   networking.hostName = "penglpc";
 
+  # Windows dual-boot: chainload from this machine's own Windows ESP
+  # (nvme0n1p1, confirmed to hold EFI/Microsoft/Boot/bootmgfw.efi).
+  boot.loader.grub.extraEntries = ''
+    menuentry "Windows" {
+      insmod part_gpt
+      insmod fat
+      insmod chain
+      search --no-floppy --fs-uuid --set=root DADA-D4B7
+      chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+    }
+  '';
+
   # NVIDIA specific configuration for penglpc (single discrete GPU, no prime/offload)
   hardware.graphics = {
     enable = true;
