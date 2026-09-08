@@ -71,6 +71,15 @@
             ./nixos/configuration.nix
           ];
         };
+
+        # Penglpc configuration
+        penglpc = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs outputs; };
+          modules = [
+            ./hosts/penglpc/configuration.nix
+            ./nixos/configuration.nix
+          ];
+        };
       };
 
       # Home-manager configurations for each machine
@@ -80,6 +89,15 @@
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [
             ./hosts/penglaptop/home.nix
+            ./home-manager/home.nix
+          ];
+        };
+
+        "pengl@penglpc" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = [
+            ./hosts/penglpc/home.nix
             ./home-manager/home.nix
           ];
         };
