@@ -36,6 +36,12 @@
   hardware.nvidia = {
     modesetting.enable = true;
     open = false;
+    # Keeps the GPU initialized from early boot via nvidia-persistenced.service.
+    # Without this, services that probe for CUDA at startup (e.g. ollama) can
+    # race the driver during boot, silently fall back to CPU, and stay that
+    # way until restarted -- see systemd.services.ollama.after in
+    # nixos/configuration.nix, which depends on this being enabled.
+    nvidiaPersistenced = true;
   };
 
   # Steam configuration

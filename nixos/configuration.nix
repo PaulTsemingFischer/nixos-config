@@ -302,6 +302,9 @@
 
   systemd.services.ollama.serviceConfig.DeviceAllow = [ "char-nvidia" ];
 
+  systemd.services.ollama.after = [ "nvidia-persistenced.service" ];
+  systemd.services.ollama.wants = [ "nvidia-persistenced.service" ];
+
   # Actual budget
   # services.actual = {
   #   enable = true;
