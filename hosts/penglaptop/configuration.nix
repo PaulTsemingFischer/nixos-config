@@ -25,6 +25,12 @@
   hardware.nvidia = {
     modesetting.enable = true;
     open = false;
+    # Pinned to the 535 branch: 595.84 (the current "stable"/"production"
+    # branch) crashes reproducibly in rm_acpi_nvpcf_notify -> _nv055179rm
+    # (NVPCF ACPI power-notify handler), causing full-system freezes.
+    # 535.x is Ada Lovelace-compatible (RTX 4060 Mobile) and much more
+    # battle-tested. Revisit once upstream fixes the NVPCF crash.
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_535;
     prime = {
       offload = {
         enable = true;
