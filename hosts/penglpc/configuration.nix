@@ -9,6 +9,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./seafile.nix
   ];
 
   networking.hostName = "penglpc";

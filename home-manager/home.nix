@@ -188,6 +188,10 @@
   # Enable home-manager and git
   programs.home-manager.enable = true;
 
+  # Launch the Seafile tray applet on login on every machine that has the seafile-client package
+  xdg.configFile."autostart/com.seafile.seafile-applet.desktop".source =
+    "${pkgs.seafile-client}/share/applications/com.seafile.seafile-applet.desktop";
+
   #direnv
   programs.direnv = {
     enable = true;
