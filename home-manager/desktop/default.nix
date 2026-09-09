@@ -3,6 +3,7 @@
   imports = [
     inputs.niri-flake.homeModules.niri
     ./mime.nix
+    ./firefox.nix
     ./gnome/gnome.nix
     ./niri
     # ./hyprland.nix

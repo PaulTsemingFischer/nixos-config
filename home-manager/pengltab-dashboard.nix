@@ -10,7 +10,7 @@
       Description = "Static server for the pengltab new-tab dashboard";
     };
     Service = {
-      ExecStart = "${pkgs.python3}/bin/python3 -m http.server 4173 --bind 127.0.0.1 --directory %h/Seafile/Projects/pengltab/dashboard-app/dist";
+      ExecStart = "${pkgs.python3}/bin/python3 %h/Seafile/Projects/pengltab/dashboard-app/serve.py %h/Seafile/Projects/pengltab/dashboard-app/dist 4173";
       Restart = "on-failure";
     };
     Install.WantedBy = [ "default.target" ];
