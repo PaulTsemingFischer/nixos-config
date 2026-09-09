@@ -81,14 +81,10 @@
       device = "nodev";
       #      theme = "/home/pengl/Documents/nix-config/themes/grub/CelesteGRUB1440p";
       useOSProber = false;
+      # Host-specific "Windows" chainload entries (each machine's Windows ESP
+      # has a different filesystem UUID) live in hosts/<host>/configuration.nix
+      # and get concatenated onto this via boot.loader.grub.extraEntries.
       extraEntries = ''
-        menuentry "Windows" {
-          insmod part_gpt
-          insmod fat
-          insmod chain
-          search --no-floppy --fs-uuid --set=root 2CC2-1CB5
-          chainloader /EFI/Microsoft/Boot/bootmgfw.efi
-        }
         menuentry "UEFI Firmware Settings" {
           fwsetup
         }

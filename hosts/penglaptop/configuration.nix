@@ -14,6 +14,17 @@
 
   networking.hostName = "penglaptop";
 
+  # Windows dual-boot: chainload from this machine's own Windows ESP.
+  boot.loader.grub.extraEntries = ''
+    menuentry "Windows" {
+      insmod part_gpt
+      insmod fat
+      insmod chain
+      search --no-floppy --fs-uuid --set=root 2CC2-1CB5
+      chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+    }
+  '';
+
   # NVIDIA specific configuration for penglaptop
   hardware.graphics = {
     enable = true;
