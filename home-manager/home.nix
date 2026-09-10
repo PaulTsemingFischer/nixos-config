@@ -177,9 +177,10 @@
     maestral
     maestral-gui
     seafile-client
-    # gsettings-desktop-schemas # (for seafile)
-    # libappindicator-gtk3
-    # libdbusmenu-gtk3
+    gtk3 # (for seafile) provides org.gtk.Settings.FileChooser schema
+    gsettings-desktop-schemas # (for seafile)
+    libappindicator-gtk3
+    libdbusmenu-gtk3
 
     # Goldman Sachs
     # citrix_workspace
@@ -292,6 +293,19 @@
   home.sessionVariables = {
     STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
   };
+
+  # GNOME's session XDG_DATA_DIRS is a fixed list baked into gnome-session's
+  # own wrapper at login and doesn't pick up home.packages automatically --
+  # and home.sessionVariables only lands in shell rc files (.zshenv/.profile),
+  # which GDM-launched graphical sessions never source. seafile-client's
+  # native GTK3 folder-chooser dialog needs gtk3's org.gtk.Settings.FileChooser
+  # schema (missing schema = fatal GLib abort, crashing the whole app), so it
+  # has to be dropped directly into systemd/PAM's environment.d, which GNOME
+  # sessions do read at login. Takes effect on next login, not `home-manager
+  # switch` alone.
+  xdg.configFile."environment.d/50-seafile-gtk3-schema.conf".text = ''
+    XDG_DATA_DIRS=${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}:''${XDG_DATA_DIRS}
+  '';
 
   home.sessionPath = [ "$HOME/.local/bin" ];
 
