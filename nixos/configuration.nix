@@ -194,7 +194,7 @@
       initialPassword = "chbs";
       isNormalUser = true;
       openssh.authorizedKeys.keys = [
-        # TODO: Add your SSH public key(s) here, if you plan on using SSH to connect
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBq0eyCedZ/d613P51SifYZjPC6yfD2s5/a5onx/i9Co pengl@penglaptop"
       ];
       shell = pkgs.zsh;
       extraGroups = [
