@@ -14,6 +14,15 @@
 
   networking.hostName = "penglpc";
 
+  zramSwap.enable = true;
+
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 16 * 1024; # 16GB, matches RAM
+    }
+  ];
+
   # Windows dual-boot: chainload from this machine's own Windows ESP
   # (nvme0n1p1, confirmed to hold EFI/Microsoft/Boot/bootmgfw.efi).
   boot.loader.grub.extraEntries = ''
