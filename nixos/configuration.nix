@@ -172,6 +172,11 @@
     nvtopPackages.full
     keyd
     # Audio tools moved to yoga-pro-9i-audio.nix module
+
+    # Cornell VPN (Cisco AnyConnect protocol) -- CLI client only, no
+    # service/daemon is enabled anywhere, so it never runs unless invoked
+    # manually (see the `cuvpn` shell alias in home-manager/terminal/aliases.nix).
+    openconnect
   ];
 
   # Virtualization
