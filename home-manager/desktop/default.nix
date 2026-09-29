@@ -4,6 +4,8 @@
     inputs.niri-flake.homeModules.niri
     ./mime.nix
     ./firefox.nix
+    ./qt.nix
+    ./dolphin.nix
     ./gnome/gnome.nix
     ./niri
     # ./hyprland.nix

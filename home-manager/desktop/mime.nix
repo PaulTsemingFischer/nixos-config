@@ -4,8 +4,29 @@
     enable = true;
 
     defaultApplications = {
-      "inode/directory" = [ "org.gnome.Nautilus.desktop" ];
-      "application/zip" = [ "org.gnome.Nautilus.desktop" ];
+      # Dolphin is the file manager everywhere. `inode/directory` covers most
+      # of it; the rest are the aliases and URI schemes that individual apps
+      # still hand to xdg-open. The D-Bus side of "open containing folder" is
+      # handled separately in ./dolphin.nix.
+      "inode/directory" = [ "org.kde.dolphin.desktop" ];
+      "inode/mount-point" = [ "org.kde.dolphin.desktop" ];
+      "x-directory/normal" = [ "org.kde.dolphin.desktop" ];
+      "x-scheme-handler/file" = [ "org.kde.dolphin.desktop" ];
+      "x-scheme-handler/trash" = [ "org.kde.dolphin.desktop" ];
+
+      # Ark takes over the archive types Nautilus used to claim.
+      "application/zip" = [ "org.kde.ark.desktop" ];
+      "application/vnd.rar" = [ "org.kde.ark.desktop" ];
+      "application/x-7z-compressed" = [ "org.kde.ark.desktop" ];
+      "application/x-tar" = [ "org.kde.ark.desktop" ];
+      "application/x-compressed-tar" = [ "org.kde.ark.desktop" ];
+      "application/x-bzip-compressed-tar" = [ "org.kde.ark.desktop" ];
+      "application/x-xz-compressed-tar" = [ "org.kde.ark.desktop" ];
+      "application/x-zstd-compressed-tar" = [ "org.kde.ark.desktop" ];
+      "application/gzip" = [ "org.kde.ark.desktop" ];
+      "application/x-bzip2" = [ "org.kde.ark.desktop" ];
+      "application/x-xz" = [ "org.kde.ark.desktop" ];
+      "application/zstd" = [ "org.kde.ark.desktop" ];
 
       "application/pdf" = [ "firefox.desktop" ];
       "x-scheme-handler/http" = [ "firefox.desktop" ];

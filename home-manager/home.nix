@@ -69,6 +69,7 @@
     claude-code
     claude-monitor
     claude-desktop
+    czkawka
 
     # Media editing
     krita
@@ -82,8 +83,6 @@
     # Media consumption
     spotify
     spotdl
-    # kdePackages.dolphin # file manager
-    # kdePackages.qtsvg # (for dolphin previews)
 
     # Communication
     discord
@@ -93,7 +92,7 @@
     slack
     zoom-us
     zapzap # (Whatsapp)
-    beeper
+
 
     # Coding
     git
@@ -254,8 +253,8 @@
 
     settings = {
       user = {
-        name = "Paul Fischer";
-        email = "paultsemingfischer@gmail.com";
+        name = "Chloe Fischer";
+        email = "chloetfischer@gmail.com";
       };
 
       pull.rebase = false;
