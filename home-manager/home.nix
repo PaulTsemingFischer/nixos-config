@@ -159,6 +159,9 @@ in
     # Node
     nodejs_24
 
+    # LaTeX
+    texliveFull
+
     # Gaming
     prismlauncher
     lunar-client

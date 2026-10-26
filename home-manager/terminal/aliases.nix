@@ -56,6 +56,11 @@
       sshc = "ssh ptf34@ugclinux.cs.cornell.edu";
       sshcy = "ssh -Y ptf34@ugclinux.cs.cornell.edu";
 
+      #only runs when you type it; Ctrl-C disconnects, or use cuvpndown
+      #from another terminal)
+      cuvpn = "sudo openconnect --protocol=anyconnect --useragent=AnyConnect cuvpn.cuvpn.cornell.edu";
+      cuvpndown = "sudo pkill -INT -x openconnect";
+
       #local dev
       ldev = "cp ${toString ./bareflake.nix} ./flake.nix && echo 'source_up\nuse flake' > .envrc && git add . && direnv allow";
 
