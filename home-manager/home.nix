@@ -7,6 +7,28 @@
   pkgs,
   ...
 }:
+let
+  # seafile-applet's native GTK3 folder-chooser dialog needs gtk3's
+  # org.gtk.Settings.FileChooser schema on XDG_DATA_DIRS -- missing schema =
+  # fatal GLib abort, crashing the whole app. This wrapper re-adds it
+  # immediately before exec, in a real shell, so it can't be clobbered by
+  # whatever launched it (see the two .desktop entries below for why both are
+  # needed).
+  seafileAppletLaunch = pkgs.writeShellScript "seafile-applet-launch" ''
+    export XDG_DATA_DIRS="${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}:$XDG_DATA_DIRS"
+    exec ${pkgs.seafile-client}/bin/seafile-applet
+  '';
+  seafileAppletDesktopEntry = ''
+    [Desktop Entry]
+    Name=Seafile
+    Comment=Seafile desktop sync client
+    TryExec=seafile-applet
+    Exec=${seafileAppletLaunch}
+    Icon=seafile
+    Type=Application
+    Categories=Network;FileTransfer;
+  '';
+in
 {
   imports = [
     ./terminal/aliases.nix
@@ -196,29 +218,22 @@
   programs.home-manager.enable = true;
 
   # Launch the Seafile tray applet on login on every machine that has the seafile-client package.
-  # Exec runs a wrapper (not the bare binary) because seafile-applet's native GTK3
-  # folder-chooser dialog needs gtk3's org.gtk.Settings.FileChooser schema on
-  # XDG_DATA_DIRS -- missing schema = fatal GLib abort, crashing the whole app.
-  # The environment.d drop-in below computes this correctly, but GNOME's own
-  # session startup overwrites XDG_DATA_DIRS wholesale afterward (confirmed via
-  # journalctl/systemctl --user show-environment on both penglaptop and penglpc:
-  # the generator's output is right, the live session's isn't), so anything
-  # relying on ambient session environment loses the schema path by the time
-  # XDG autostart apps actually launch. This wrapper re-adds it immediately
-  # before exec, in a real shell, so it can't be clobbered upstream.
-  xdg.configFile."autostart/com.seafile.seafile-applet.desktop".text = ''
-    [Desktop Entry]
-    Name=Seafile
-    Comment=Seafile desktop sync client
-    TryExec=seafile-applet
-    Exec=${pkgs.writeShellScript "seafile-applet-launch" ''
-      export XDG_DATA_DIRS="${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}:$XDG_DATA_DIRS"
-      exec ${pkgs.seafile-client}/bin/seafile-applet
-    ''}
-    Icon=seafile
-    Type=Application
-    Categories=Network;FileTransfer;
-  '';
+  # The environment.d drop-in further below computes XDG_DATA_DIRS correctly,
+  # but GNOME's own session startup overwrites it wholesale afterward
+  # (confirmed via journalctl/systemctl --user show-environment on both
+  # penglaptop and penglpc: the generator's output is right, the live
+  # session's isn't), so anything relying on ambient session environment
+  # loses the schema path by the time XDG autostart apps actually launch --
+  # hence the wrapper script instead.
+  xdg.configFile."autostart/com.seafile.seafile-applet.desktop".text = seafileAppletDesktopEntry;
+
+  # Also override the regular applications entry (not just autostart) with
+  # the same wrapped Exec, so launching Seafile from an app launcher (GNOME
+  # Overview, rofi, etc. -- which read XDG_DATA_DIRS/applications, not
+  # ~/.config/autostart) gets the schema fix too, instead of falling through
+  # to seafile-client's own unwrapped share/applications/*.desktop and
+  # crashing the same way.
+  xdg.dataFile."applications/com.seafile.seafile-applet.desktop".text = seafileAppletDesktopEntry;
 
   #direnv
   programs.direnv = {

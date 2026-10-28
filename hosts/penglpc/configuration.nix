@@ -52,7 +52,20 @@
     # way until restarted -- see systemd.services.ollama.after in
     # nixos/configuration.nix, which depends on this being enabled.
     nvidiaPersistenced = true;
+    # Enables the nvidia-suspend/-resume/-hibernate systemd services that
+    # save/restore VRAM state, in case suspend is ever re-enabled.
+    powerManagement.enable = true;
   };
+
+  # Suspend/resume is broken on this machine at the firmware/hardware level
+  # (reproduces identically on Windows: screen stays black, never wakes,
+  # requires a hard power-cycle) -- confirmed 2026-09-11 even with the
+  # NVIDIA powerManagement fix above in place. Masking these targets stops
+  # anything (idle timeout, lid, explicit suspend) from ever suspending it.
+  systemd.targets.sleep.enable = false;
+  systemd.targets.suspend.enable = false;
+  systemd.targets.hibernate.enable = false;
+  systemd.targets.hybrid-sleep.enable = false;
 
   # Steam configuration
   programs.steam = {
