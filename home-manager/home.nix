@@ -63,13 +63,8 @@
     clipboard-jh
     graphviz
     skim # file fuzzy finder
-    ollama
-    todoist
-    opencode
-    claude-code
-    claude-monitor
-    claude-desktop
-    czkawka
+    texliveFull
+    scenebuilder
 
     # Media editing
     krita
@@ -79,10 +74,12 @@
     pdftk
     jellyfin-ffmpeg
     video-trimmer
+    footage # video editor
 
     # Media consumption
     spotify
     spotdl
+    zathura # pdf viewer
 
     # Communication
     discord
@@ -92,7 +89,6 @@
     slack
     zoom-us
     zapzap # (Whatsapp)
-
 
     # Coding
     git
@@ -145,6 +141,14 @@
     protonup-ng
     heroic
     steam-run
+
+    # AI
+    ollama
+    opencode
+    claude-code
+    claude-monitor
+    claude-desktop
+    czkawka
 
     # Remote access
     wget
