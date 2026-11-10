@@ -77,7 +77,7 @@ in
     nix-search-cli # search nix packages
     qbittorrent-enhanced
     parabolic # video downloader
-    anki # flashcards
+    # anki # flashcards -- broken build in nixpkgs as of 2026-11-07 (anki-26.09.4 aqt build tries to hit pypi.org in sandbox)
     diffutils # diff command
     audacity # audio editing
     qemu # vms
@@ -175,7 +175,7 @@ in
     # Remote access
     wget
     parsec-bin
-    rustdesk-flutter
+    # rustdesk-flutter # broken build in nixpkgs as of 2026-11-07 (missing libsodium pkg-config)
 
     # Hardware
     (btop.override {

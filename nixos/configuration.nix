@@ -45,7 +45,10 @@
     {
       settings = {
         # Enable flakes and new 'nix' command
-        experimental-features = "nix-command flakes";
+        experimental-features = [
+          "nix-command"
+          "flakes"
+        ];
         # Opinionated: disable global registry
         flake-registry = "";
         # Workaround for https://github.com/NixOS/nix/issues/9574
@@ -183,13 +186,13 @@
   virtualisation.docker.enable = true;
 
   # Enable VirtualBox host (installs GUI + kernel modules)
-  virtualisation.virtualbox.host.enable = true;
+  # virtualisation.virtualbox.host.enable = true;
 
   # Optional: Oracle Extension Pack (USB2/3 etc.)
-  virtualisation.virtualbox.host.enableExtensionPack = true;
+  # virtualisation.virtualbox.host.enableExtensionPack = true;
 
   # Let your user use VirtualBox
-  users.extraGroups.vboxusers.members = [ "pengl" ];
+  # users.extraGroups.vboxusers.members = [ "pengl" ];
 
   users.users = {
     pengl = {
