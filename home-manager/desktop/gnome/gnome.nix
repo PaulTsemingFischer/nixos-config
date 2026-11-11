@@ -15,6 +15,9 @@
   dconf.settings = {
     "org/gnome/shell" = {
       disable-user-extensions = false;
+      # window-calls (needed by the Ulauncher window switcher) lags behind new
+      # GNOME Shell versions and is otherwise marked OUT OF DATE and not loaded.
+      disable-extension-version-validation = true;
       enabled-extensions = with pkgs.gnomeExtensions; [
         "touchx@neuromorph"
         "appindicatorsupport@rgcjonas.gmail.com"

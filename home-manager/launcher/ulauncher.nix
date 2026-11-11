@@ -13,7 +13,6 @@ in
   home.file.".config/ulauncher/user-themes/TokyoNight".source = "${tokyoNightTheme}/TokyoNight";
 
   home.file.".config/ulauncher/settings.json".text = builtins.toJSON {
-    hotkey-show-app = "Super+r";
     theme-name = "TokyoNight-Theme";
     show-indicator-icon = true;
     show-recent-apps = 0;

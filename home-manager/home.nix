@@ -33,7 +33,7 @@ in
   imports = [
     ./terminal/aliases.nix
     ./terminal/pengl-zsh.nix
-    # ./launcher/ulauncher.nix
+    ./launcher/ulauncher.nix
     ./desktop/default.nix
     ./opencode.nix
     ./pengltab-dashboard.nix
@@ -85,8 +85,10 @@ in
     clipboard-jh
     graphviz
     skim # file fuzzy finder
+    fd # fast find, needed by the Ulauncher Find extension
     texliveFull
     scenebuilder
+    bruno
 
     # Media editing
     krita
@@ -288,12 +290,10 @@ in
         autoSetupRemote = true;
       };
 
-      # Add this block
       interactive = {
         diffFilter = "diff-so-fancy --patch";
       };
 
-      # Optional: recommended color settings for diff-so-fancy
       color = {
         diff = "always";
         ui = "always";
