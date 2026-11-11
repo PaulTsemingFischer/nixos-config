@@ -7,7 +7,7 @@
     ./qt.nix
     ./dolphin.nix
     ./gnome/gnome.nix
-    ./niri
+    # ./niri
     # ./hyprland.nix
   ];
 
