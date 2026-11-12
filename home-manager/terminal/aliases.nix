@@ -111,6 +111,12 @@
         fi
       }
 
+      # Make a directory (and any parents) and cd into it
+      mkcd() {
+        [[ -z "$1" ]] && { echo "Usage: mkcd <dir>" >&2; return 2; }
+        mkdir -p -- "$1" && builtin cd -- "$1"
+      }
+
       # Run in background silently
       rbg() {
         eval "$*" &> /dev/null & 
