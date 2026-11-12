@@ -350,15 +350,9 @@ in
 
   home.sessionPath = [ "$HOME/.local/bin" ];
 
-  # Nix garbage collection
-  programs.nh = {
-    enable = true;
-
-    clean = {
-      enable = true;
-      extraArgs = "--keep 5";
-    };
-  };
+  # Nix garbage collection is handled system-wide by `programs.nh.clean` in
+  # nixos/configuration.nix (`nh clean all` covers user profiles too).
+  programs.nh.enable = true;
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";

@@ -53,6 +53,8 @@
         flake-registry = "";
         # Workaround for https://github.com/NixOS/nix/issues/9574
         nix-path = config.nix.nixPath;
+        # Hard-link identical files in the store
+        auto-optimise-store = true;
       };
       # Opinionated: disable channels
       channel.enable = false;
@@ -64,6 +66,18 @@
         warn-dirty = false
       '';
     };
+
+  # Nix garbage collection. Runs `nh clean all` as root on a weekly timer, so
+  # it prunes system generations as well as user/home-manager ones (a user-level
+  # timer can only touch the latter).
+  programs.nh = {
+    enable = true;
+    flake = "/home/pengl/Documents/nix-config";
+    clean = {
+      enable = true;
+      extraArgs = "--keep 5 --keep-since 7d";
+    };
+  };
 
   # Systemd boot
   # boot.loader.systemd-boot.enable = true;
