@@ -47,10 +47,9 @@ THEME_USER_BG=$COLOR_SOFT_PURPLE
 THEME_USER_FG=$COLOR_BLACK
 USER_LABEL='%n'
 
-# Over SSH, show the host name on a red segment so remote shells stand out
+# Over SSH, show the host name on a pink segment so remote shells stand out
 if [[ -n $SSH_CONNECTION || -n $SSH_TTY ]]; then
-  THEME_USER_BG=$COLOR_RED
-  THEME_USER_FG=$COLOR_WHITE
+  THEME_USER_BG=$COLOR_PASTEL_PINK
   USER_LABEL='%m(ssh)'
 fi
 THEME_SPECIAL_DIR_BG=$COLOR_PASTEL_GREEN
