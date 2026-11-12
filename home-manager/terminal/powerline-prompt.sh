@@ -45,6 +45,14 @@ COLOR_SOFT_GREEN=120  # #87FF87
 # ================= THEME COLORS =================
 THEME_USER_BG=$COLOR_SOFT_PURPLE
 THEME_USER_FG=$COLOR_BLACK
+USER_LABEL='%n'
+
+# Over SSH, show the host name on a red segment so remote shells stand out
+if [[ -n $SSH_CONNECTION || -n $SSH_TTY ]]; then
+  THEME_USER_BG=$COLOR_RED
+  THEME_USER_FG=$COLOR_WHITE
+  USER_LABEL='%m(ssh)'
+fi
 THEME_SPECIAL_DIR_BG=$COLOR_PASTEL_GREEN
 THEME_SPECIAL_DIR_FG=$COLOR_BLACK
 THEME_PATH_BG=$COLOR_PASTEL_BLUE
@@ -179,9 +187,9 @@ segment_user() {
   local path_info=($(format_path))
   local is_special_dir=${path_info[-1]}
   if [[ $is_special_dir == "true" ]]; then
-    echo "${BG_USER}${TXT_USER_FG}${BOLD} %n ${RESET}${FG_USER}${BG_SPECIAL_DIR}${RIGHT_ARROW}${RESET}"
+    echo "${BG_USER}${TXT_USER_FG}${BOLD} ${USER_LABEL} ${RESET}${FG_USER}${BG_SPECIAL_DIR}${RIGHT_ARROW}${RESET}"
   else
-    echo "${BG_USER}${TXT_USER_FG}${BOLD} %n ${RESET}${FG_USER}${BG_PATH}${RIGHT_ARROW}${RESET}"
+    echo "${BG_USER}${TXT_USER_FG}${BOLD} ${USER_LABEL} ${RESET}${FG_USER}${BG_PATH}${RIGHT_ARROW}${RESET}"
   fi
 }
 
